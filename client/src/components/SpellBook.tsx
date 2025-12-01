@@ -202,18 +202,34 @@ export default function SpellBook() {
     if (!pf) return;
     const current = pf.getCurrentPageIndex();
     if (current > 0) {
-      navigateToPage(current - 1, instant);
+      try {
+        if (instant) {
+          pf.turnToPage(current - 1);
+        } else {
+          pf.flipPrev();
+        }
+      } catch {
+        // Ignore flip errors
+      }
     }
-  }, [navigateToPage]);
+  }, []);
 
   const handleNext = useCallback((instant: boolean = false) => {
     const pf = pageFlipInstanceRef.current;
     if (!pf) return;
     const current = pf.getCurrentPageIndex();
     if (current < maxPageIndex) {
-      navigateToPage(current + 1, instant);
+      try {
+        if (instant) {
+          pf.turnToPage(current + 1);
+        } else {
+          pf.flipNext();
+        }
+      } catch {
+        // Ignore flip errors
+      }
     }
-  }, [navigateToPage]);
+  }, []);
 
   const handleFirst = useCallback(() => navigateToPage(0, true), [navigateToPage]);
   const handleLast = useCallback(() => navigateToPage(maxPageIndex, true), [navigateToPage]);
