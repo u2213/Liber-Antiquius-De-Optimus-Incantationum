@@ -1,0 +1,1019 @@
+Blood Spells
+Acupuncture
+
+School:	Blood		Level:	1 to 10
+Cooldown:	20s		Mana:	25 to 70
+Cast Type:	Instant		Rarity:	Rare to Legendary
+2 Damage
+5-14 Projectiles
+
+
+Around a targeted creature, create a field of blood needles in every direction, shooting down and healing you for 25% of damage done
+Blood Needles
+
+School:	Blood		Level:	1 to 10
+Cooldown:	10s		Mana:	25 to 70
+Cast Type:	Instant		Rarity:	Uncommon to Legendary
+2-4.25 Damage
+5 Projectiles
+
+
+Create a ring of needles made from blood and fire them forward, skewering targets and healing you for 25% of damage done
+Blood Slash
+
+School:	Blood		Level:	1 to 5
+Cooldown:	10s		Mana:	25 to 45
+Cast Type:	Instant		Rarity:	Rare to Legendary
+10-14 Damage
+
+
+
+Slash forward to send out a concentrated blade of blood, slicing through creatures and healing for 15% of damage done.
+Blood Step
+
+School:	Blood		Level:	1 to 5
+Cooldown:	12s		Mana:	30 to 70
+Cast Type:	Instant		Rarity:	Uncommon to Legendary
+12-28 Block Range
+
+
+
+Instantaneously teleport to where you are looking, or directly behind any targeted creature. Gain a short duration of true invisibility upon reaching your destination.
+Devour
+
+School:	Blood		Level:	1 to 10
+Cooldown:	20s		Mana:	25 to 61
+Cast Type:	Instant		Rarity:	Uncommon to Legendary
+6-15 Damage
+2-6 Max HP on Kill
+
+
+Pull in a nearby creature and attack them with a bite, leeching 15% of damage done as health. If the creature is killed, you temporarily gain additional max HP. Created by the Ancient Magician known as Yorhavich.
+Heartstop
+
+School:	Blood		Level:	1 to 5
+Cooldown:	120s		Mana:	100 to 140
+Cast Type:	Instant		Rarity:	Rare to Legendary
+10s-16s Effect Length
+
+
+
+Cast to inflict yourself with Heartstop, an effect that makes you temporarily invulnerable. However, once it wears off, you take 50% of all damage accumulated while under its effects.
+Raise Dead
+
+School:	Blood		Level:	1 to 6
+Cooldown:	150s		Mana:	50 to 100
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+3-8 Summons
+
+
+
+Cast to summon undead minions from the earth beneath you. The higher the power, the better equipment they will have.
+Ray Of Siphoning
+
+School:	Blood		Level:	1 to 10
+Cooldown:	15s		Mana:	8 to 17
+Cast Type:	Continuous		Rarity:	Common to Legendary
+1-3.25 Damage
+12 Block Range
+
+
+Hold to cast a ray of necrotic energy that siphons health from creatures it hits, damaging them and healing you for 100% of damage done.
+Sacrifice
+
+School:	Blood		Level:	1 to 5
+Cooldown:	1s		Mana:	25 to 45
+Cast Type:	Instant		Rarity:	Rare to Legendary
+12-16 Base Damage
+3 Block Radius
+
+
+Target one of your magic summons to cause them to explode, killing them instantly, and dealing large damage in the area around them. The summon's remaining health boosts the damage dealt and radius of explosion.
+Wither Skull
+
+School:	Blood		Level:	1 to 10
+Cooldown:	1s		Mana:	20 to 38
+Cast Type:	Instant		Rarity:	Uncommon to Legendary
+6-10.5 Damage
+
+
+
+Launch a wither skull forward that explodes in a small radius around the impact. The higher the level, the faster the projectile.
+Eldritch Spells
+Abyssal Shroud
+
+School:	Eldritch		Level:	1 to 3
+Cooldown:	200s		Mana:	300 to 340
+Cast Type:	Instant		Rarity:	Legendary to Legendary
+6s-18s Effect Length
+
+
+
+Cloak yourself with the shadows of the abyss, granting the ability to evade any attack for a short duration of time.
+Eldritch Blast
+
+School:	Eldritch		Level:	1 to 5
+Cooldown:	15s		Mana:	90 to 150
+Cast Type:	Instant		Rarity:	Legendary to Legendary
+15 Damage
+3-7 Blasts
+30 Block Range
+
+Fire rays of pure, devastating energy.
+Planar Sight
+
+School:	Eldritch		Level:	1 to 3
+Cooldown:	200s		Mana:	150 to 250
+Cast Type:	Instant		Rarity:	Legendary to Legendary
+40s-1.3m Effect Length
+
+
+
+Shift your vision in between planes, gaining the ability to see creatures through solid material.
+Pocket Dimension
+
+School:	Eldritch		Level:	1 to 1
+Cooldown:	60s		Mana:	300 to 300
+Cast Type:	Long		Rarity:	Legendary to Legendary
+Cast to transport yourself into a personal pocket dimension only you can access, giving a small free range area.
+Sculk Tentacles
+
+School:	Eldritch		Level:	1 to 4
+Cooldown:	30s		Mana:	150 to 300
+Cast Type:	Long		Rarity:	Legendary to Legendary
+8 Damage
+2.5-6.5 Block Radius
+
+
+From where you look, erupt a mass of sculk energy in the form of wailing tentacles, damaging and blinding creatures caught in the chaos.
+Sonic Boom
+
+School:	Eldritch		Level:	1 to 3
+Cooldown:	25s		Mana:	110 to 210
+Cast Type:	Long		Rarity:	Legendary to Legendary
+20-36 Damage
+20-30 Block Range
+
+
+Blast forth a sonic boom of immense power, passing through solid material and harming all creatures in its path.
+Telekinesis
+
+School:	Eldritch		Level:	1 to 5
+Cooldown:	35s		Mana:	25 to 25
+Cast Type:	Continuous		Rarity:	Legendary to Legendary
+12-20 Block Range
+
+
+
+Reach out with a spectral force and grip a creature, forcing them towards your gaze. Creatures are susceptible to kinetic damage.
+Ender Spells
+Black Hole
+
+School:	Ender		Level:	1 to 6
+Cooldown:	120s		Mana:	300 to 800
+Cast Type:	Long		Rarity:	Legendary to Legendary
+2 AOE Damage
+6.1-16.1 Block Radius
+
+
+Around a targeted location, create a fissure into the void, manifesting a black hole that will suck in nearby creatures and slowly crush them to death
+Counterspell
+
+School:	Ender		Level:	1 to 1
+Cooldown:	10s		Mana:	50 to 50
+Cast Type:	Instant		Rarity:	Rare to Rare
+Interrupt player and mob casting
+Banishes summoned shield , blood slash , creeper head
+Banishes summoned creatures
+Removes root
+Removes mob effects like fortify or evasion
+Dragon Breath
+
+School:	Ender		Level:	1 to 10
+Cooldown:	12s		Mana:	5 to 14
+Cast Type:	Continuous		Rarity:	Common to Legendary
+1.75-8.5 Damage
+
+
+
+Hold to spew a cone of dragon breath forwards. Each time a creature is hit, there is a chance to create a pool of dragon breath at their feet.
+Echoing Strikes
+
+School:	Ender		Level:	1 to 5
+Cooldown:	60s		Mana:	50 to 90
+Cast Type:	Instant		Rarity:	Rare to Legendary
+30%-70% Damage
+2.0 Block Radius
+20s-40s Effect Length
+
+While under the effects of the spell, non-magical attacks will leave an echo of ender energy behind, shortly thereafter exploding with an echo of the original attack's damage.
+Evasion
+
+School:	Ender		Level:	1 to 5
+Cooldown:	180s		Mana:	40 to 120
+Cast Type:	Instant		Rarity:	Epic to Legendary
+1-5 Hits Dodged
+
+
+
+Cast to imbue yourself with ender energy. Upon being attacked while under its effects, you will immediately teleport within a short radius and avoid taking any damage. Only a finite amount of hits can be dodged before the effect immediately wears off.
+Magic Arrow
+
+School:	Ender		Level:	1 to 10
+Cooldown:	8s		Mana:	40 to 85
+Cast Type:	Long		Rarity:	Rare to Legendary
+10-28 Damage
+
+
+
+Hold to charge a piercing arrow made of arcane energy. This arrow has no gravity and can travel through blocks.
+Magic Missile
+
+School:	Ender		Level:	1 to 10
+Cooldown:	1s		Mana:	10 to 28
+Cast Type:	Instant		Rarity:	Common to Legendary
+6-10.5 Damage
+
+
+
+Shoot a bolt of concentrated arcane magic. Also a trademark of every wizard.
+Portal
+
+School:	Ender		Level:	1 to 3
+Cooldown:	180s		Mana:	200 to 220
+Cast Type:	Instant		Rarity:	Uncommon to Legendary
+48 Cast Range
+5m-9m Portal Duration
+
+
+Creates two portals that allows players to travel back and forth between them.
+Recall
+
+School:	Ender		Level:	1 to 1
+Cooldown:	300s		Mana:	100 to 100
+Cast Type:	Long		Rarity:	Uncommon to Uncommon
+Warps you back to your spawn location, or world spawn if there is none.
+Starfall
+
+School:	Ender		Level:	1 to 10
+Cooldown:	16s		Mana:	5 to 14
+Cast Type:	Continuous		Rarity:	Uncommon to Legendary
+4-8.5 Damage
+6 Block Radius
+
+
+Target a single area and continuously rain down arcane comets from above for the duration of the spell
+Summon Ender Chest
+
+School:	Ender		Level:	1 to 1
+Cooldown:	5s		Mana:	25 to 25
+Cast Type:	Instant		Rarity:	Rare to Rare
+Apparate your Ender Chest inventory upon casting.
+Summon Swords
+
+School:	Ender		Level:	1 to 5
+Cooldown:	150s		Mana:	80 to 140
+Cast Type:	Long		Rarity:	Rare to Legendary
+3 Summons
+100%-140% Damage
+100%-180% Health
+
+Conjure a trio of spectral armaments to aid in battle: a brawling shortsword, a quick rapier, and a tanking claymore. Created by the Ancient Magician known as Hazentouvel.
+Teleport
+
+School:	Ender		Level:	1 to 5
+Cooldown:	3s		Mana:	20 to 40
+Cast Type:	Instant		Rarity:	Uncommon to Legendary
+10-50 Block Range
+
+
+
+Instantaneously teleport to where you are looking, leaving nothing but a cloud of ender energy behind.
+Evocation Spells
+Arrow Volley
+
+School:	Evocation		Level:	1 to 6
+Cooldown:	15s		Mana:	40 to 90
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+2 Damage
+25-80 Projectiles
+
+
+Around a targeted creature or block, summon a rolling wave of magical arrows from the sky.
+Chain Creeper
+
+School:	Evocation		Level:	1 to 6
+Cooldown:	15s		Mana:	40 to 90
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+5 Damage
+3-8 Projectiles
+
+
+Around a targeted creature or block, conjure a ring of creeper heads that falls to the ground and explodes. Any creature killed by this blast will conjure another, smaller, ring of creeper heads. This can chain multiple times.
+Fang Strike
+
+School:	Evocation		Level:	1 to 10
+Cooldown:	5s		Mana:	30 to 57
+Cast Type:	Long		Rarity:	Common to Legendary
+8-17 Fangs
+6-15 Damage
+
+
+Conjure a line of evoker fangs in front of you, in classic illager fashion.
+Fang Ward
+
+School:	Evocation		Level:	1 to 8
+Cooldown:	15s		Mana:	45 to 80
+Cast Type:	Long		Rarity:	Common to Legendary
+2-4 Rings
+8-15 Damage
+
+
+Conjure protective rings of evoker fangs around you, in classic illager fashion.
+Firecracker
+
+School:	Evocation		Level:	1 to 10
+Cooldown:	1s		Mana:	20 to 38
+Cast Type:	Instant		Rarity:	Common to Legendary
+4-13 Damage
+
+
+
+Instantaneously conjure a firework where you look that explodes in a small radius around it.
+Gust
+
+School:	Evocation		Level:	1 to 10
+Cooldown:	12s		Mana:	30 to 75
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+100%-190% Strength
+4.5-9 Impact Damage
+
+
+Conjure a strong gust of wind, knocking back creatures in a conical shape, causing damage if they impact a wall
+Invisibility
+
+School:	Evocation		Level:	1 to 6
+Cooldown:	45s		Mana:	35 to 75
+Cast Type:	Long		Rarity:	Rare to Legendary
+10s-35s Effect Length
+
+
+
+Cast to briefly grant yourself true invisibility, which hides armor and held items, but immediately wears off upon dealing damage. Mobs also lose aggro.
+Lob Creeper
+
+School:	Evocation		Level:	1 to 10
+Cooldown:	2s		Mana:	20 to 38
+Cast Type:	Instant		Rarity:	Uncommon to Legendary
+6-10.5 Damage
+
+
+
+Lob the head of a creeper forward that explodes in a medium radius around the impact. The higher the level, the faster the projectile.
+Shield
+
+School:	Evocation		Level:	1 to 10
+Cooldown:	8s		Mana:	35 to 80
+Cast Type:	Instant		Rarity:	Common to Legendary
+15-105 HP
+
+
+
+Conjure a stationary shield of arcane energy where you look that will block projectiles and prevent creatures from passing.
+Slow
+
+School:	Evocation		Level:	1 to 4
+Cooldown:	80s		Mana:	50 to 80
+Cast Type:	Long		Rarity:	Epic to Legendary
+10%-40% Slowed
+20s-32s Effect Length
+5 Max Targets
+
+In a radius around a targeted creature, apply the Slowed effect to enemies, decreasing movement speed, attack speed, mining speed, mana regeneration, and cast time for a duration.
+Spectral Hammer
+
+School:	Evocation		Level:	1 to 5
+Cooldown:	2s		Mana:	15 to 35
+Cast Type:	Instant		Rarity:	Uncommon to Legendary
+3x3x2
+16 Block Range
+
+
+Conjure a spectral hammer out from where you look that will mine all connected stone-type blocks in a cube where it hits, leaving only ores and rubble behind.
+Summon Horse
+
+School:	Evocation		Level:	1 to 5
+Cooldown:	20s		Mana:	50 to 58
+Cast Type:	Long		Rarity:	Common to Legendary
+Conjure a spectral steed that will follow you around and only let you ride. The horse's speed, health, and jump height scales with spell power.
+Summon Vex
+
+School:	Evocation		Level:	1 to 5
+Cooldown:	150s		Mana:	50 to 90
+Cast Type:	Long		Rarity:	Rare to Legendary
+3-7 Summons
+
+
+
+Cast to conjure vexes that will follow, protect, and fight for you.
+Wololo
+
+School:	Evocation		Level:	1 to 1
+Cooldown:	10s		Mana:	10 to 10
+Cast Type:	Long		Rarity:	Legendary to Legendary
+Wololo!
+Fire Spells
+Blaze Storm
+
+School:	Fire		Level:	1 to 10
+Cooldown:	20s		Mana:	5 to 14
+Cast Type:	Continuous		Rarity:	Common to Legendary
+2-5.59 Damage
+
+
+
+Hold to unleash a barrage of blaze fireballs, shooting rapidly but wildly in front of you and igniting any creatures or blocks hit.
+Burning Dash
+
+School:	Fire		Level:	1 to 10
+Cooldown:	10s		Mana:	20 to 38
+Cast Type:	Instant		Rarity:	Common to Legendary
+6-15 Damage
+
+
+
+Quickly launch yourself forward in a haze of fire, searing creatures you pass through while in a blaze.
+Fire Arrow
+
+School:	Fire		Level:	1 to 10
+Cooldown:	8s		Mana:	40 to 85
+Cast Type:	Long		Rarity:	Rare to Legendary
+11-20 Damage
+3 Block Radius
+5.5-10 AOE Damage
+
+Aim an arrow made of fiery magic that will deal direct damage on impact and explode for half damage in a small radius around it. It flies straight for a duration before gravity affects it.
+Fire Breath
+
+School:	Fire		Level:	1 to 10
+Cooldown:	12s		Mana:	5 to 14
+Cast Type:	Continuous		Rarity:	Common to Legendary
+1-7.75 Damage
+
+
+
+Hold to spew a cone of fire outwards, igniting creatures and blocks in its path.
+Fireball
+
+School:	Fire		Level:	1 to 5
+Cooldown:	25s		Mana:	60 to 120
+Cast Type:	Long		Rarity:	Rare to Legendary
+10-30 Damage
+3-7 Block Radius
+
+
+Manifest and throw a ball of fire, exploding and dealing massive damage on impact.
+Firebolt
+
+School:	Fire		Level:	1 to 10
+Cooldown:	1s		Mana:	10 to 28
+Cast Type:	Instant		Rarity:	Common to Legendary
+6-10.5 Damage
+
+
+
+Shoot a small projectile of fire, igniting whatever it hits.
+Flaming Barrage
+
+School:	Fire		Level:	1 to 5
+Cooldown:	15s		Mana:	80 to 100
+Cast Type:	Instant		Rarity:	Rare to Legendary
+3-11 Damage
+5 Projectiles
+
+
+Cast to select targets, which at the end of recasting, will each be under barrage of small fireballs.
+Flaming Strike
+
+School:	Fire		Level:	1 to 5
+Cooldown:	15s		Mana:	30 to 90
+Cast Type:	Long		Rarity:	Common to Legendary
+5.0-13.0 Damage
+
+
+
+Unleash a sweeping melee attack in the form of a wreath of flames. This spell is uninterruptible. The damage scales off of your held weapon's melee damage and enchantments.
+Heat Surge
+
+School:	Fire		Level:	1 to 6
+Cooldown:	45s		Mana:	50 to 100
+Cast Type:	Long		Rarity:	Common to Legendary
+15%-40% Reduced Armor
+10s-20s Effect Length
+6.5-9 Block Radius
+
+Emanate a surge of fiery magic, igniting and rending creatures in a radius around you. Rended creatures have reduced armor.
+Magma Bomb
+
+School:	Fire		Level:	1 to 8
+Cooldown:	12s		Mana:	30 to 65
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+8 Damage
+1.7-3.9 AOE Damage
+4 Block Radius
+
+Launch a bomb made from magma, exploding on impact and leaving a field of fire where it lands
+Raise Hell
+
+School:	Fire		Level:	1 to 5
+Cooldown:	25s		Mana:	90 to 270
+Cast Type:	Long		Rarity:	Legendary to Legendary
+15.0 Damage
+8 Block Radius
+1-5 Casts
+
+Slam down your weapon to wreath a fiery shockwave in a large radius around you. Damage scales based on the held weapon.
+Scorch
+
+School:	Fire		Level:	1 to 10
+Cooldown:	12s		Mana:	50 to 95
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+8-17 Damage
+2.5 Block Radius
+
+
+In a targeted area, erupt a scorch of fiery magic, damaging creatures in the zone and leaving a field of fire.
+Wall Of Fire
+
+School:	Fire		Level:	1 to 5
+Cooldown:	30s		Mana:	30 to 50
+Cast Type:	Instant		Rarity:	Common to Legendary
+4-8 AOE Damage
+13-25 Block Range
+
+
+Recast to place anchor points, which erupts into a wall of fire when the cast finishes, or when the maximum length is reached. This wall blocks projectiles and ignites creatures that pass through it.
+Holy Spells
+Angel Wing
+
+School:	Holy		Level:	1 to 5
+Cooldown:	120s		Mana:	80 to 160
+Cast Type:	Instant		Rarity:	Legendary to Legendary
+10s-50s Effect Length
+
+
+
+Cast to gain wings made of holy energy, acting as an elytra, for a brief period of time.
+Blessing Of Life
+
+School:	Holy		Level:	1 to 10
+Cooldown:	10s		Mana:	10 to 55
+Cast Type:	Long		Rarity:	Common to Legendary
+6-15 Healing
+
+
+
+Cast to target any creature, showing a glowing outline. Completing the cast will heal this creature.
+Cleanse
+
+School:	Holy		Level:	1 to 1
+Cooldown:	60s		Mana:	100 to 100
+Cast Type:	Long		Rarity:	Epic to Epic
+3 Block Radius
+
+
+
+Pray to a divine magic to cleanse yourself and nearby allies of harmful status effects.
+Divine Smite
+
+School:	Holy		Level:	1 to 5
+Cooldown:	15s		Mana:	30 to 90
+Cast Type:	Long		Rarity:	Common to Legendary
+8.0-20.0 Damage
+
+
+
+With a fervor of holy energy, swing forth your weapon, doing a melee area attack. This spell is uninterruptible. The damage scales off of your held weapon's melee damage and enchantments.
+Fortify
+
+School:	Holy		Level:	1 to 10
+Cooldown:	60s		Mana:	80 to 170
+Cast Type:	Long		Rarity:	Common to Legendary
+6-15 Temporary HP
+8 Block Radius
+
+
+Upon casting, fortify every friendly creature within a radius around you, giving them temporary HP.
+Greater Heal
+
+School:	Holy		Level:	1 to 1
+Cooldown:	45s		Mana:	100 to 100
+Cast Type:	Long		Rarity:	Rare to Rare
+Max Healing
+
+
+
+A more powerful but much slower version of heal, this spell will completely heal yourself upon being casted.
+Guiding Bolt
+
+School:	Holy		Level:	1 to 10
+Cooldown:	8s		Mana:	20 to 65
+Cast Type:	Instant		Rarity:	Common to Legendary
+3-7.5 Damage
+25s Effect Length
+
+
+Fire a slow bolt of holy energy. Creatures hit will gain the Guided effect, homing nearby projectiles in towards them
+Haste
+
+School:	Holy		Level:	1 to 4
+Cooldown:	80s		Mana:	50 to 80
+Cast Type:	Long		Rarity:	Epic to Legendary
+10%-40% Hastened
+30s-45s Effect Length
+5 Max Targets
+
+In a radius around a targeted creature, or yourself if no creature is targeted, apply the Hastened effect, increasing movement speed, attack speed, mining speed, mana regeneration, and cast time reduction for a duration.
+Heal
+
+School:	Holy		Level:	1 to 8
+Cooldown:	30s		Mana:	30 to 135
+Cast Type:	Instant		Rarity:	Uncommon to Legendary
+5-12 Healing
+
+
+
+Cast to infuse yourself with holy energy and immediately regain health.
+Healing Circle
+
+School:	Holy		Level:	1 to 10
+Cooldown:	25s		Mana:	40 to 130
+Cast Type:	Long		Rarity:	Common to Legendary
+0.5-2.75 AOE Healing
+5 Block Radius
+10s Duration
+
+Around a targeted creature or block, place a stationary circle of holy magic that heals allies within
+Sunbeam
+
+School:	Holy		Level:	1 to 10
+Cooldown:	20s		Mana:	40 to 130
+Cast Type:	Instant		Rarity:	Uncommon to Legendary
+12-25.5 Damage
+
+
+
+Funnel the power of the heavens into a beam of holy energy from above, smiting targets in an area.
+Wisp
+
+School:	Holy		Level:	1 to 10
+Cooldown:	3s		Mana:	15 to 33
+Cast Type:	Long		Rarity:	Common to Legendary
+5-14 Damage
+
+
+
+Conjure a projectile of holy energy that will float towards nearby targets and deal damage upon impact.
+Ice Spells
+Cone Of Cold
+
+School:	Ice		Level:	1 to 10
+Cooldown:	12s		Mana:	5 to 14
+Cast Type:	Continuous		Rarity:	Common to Legendary
+1.75-8.5 Damage
+
+
+
+Hold to cast out a cone of cold energy, freezing creatures in its path.
+Frost Step
+
+School:	Ice		Level:	1 to 8
+Cooldown:	12s		Mana:	15 to 50
+Cast Type:	Instant		Rarity:	Rare to Legendary
+10.5 Block Range
+4-11 Shatter Damage
+
+
+Teleport to where you are looking, leaving behind a shadow of ice. This shadow will take nearby aggro, and shatter into icicles after 5 seconds or upon taking any damage.
+Frostbite
+
+School:	Ice		Level:	1 to 5
+Cooldown:	60s		Mana:	80 to 120
+Cast Type:	Instant		Rarity:	Epic to Legendary
+6-10 Shatter Damage
+30s Effect Length
+
+
+Imbue yourself with a magical Frostbiting power, making any fully-frozen creature you kill turn into an Ice Shadow. Ice Shadows shatter into icicles after 5 seconds or upon taking any damage.
+Frostwave
+
+School:	Ice		Level:	1 to 8
+Cooldown:	45s		Mana:	50 to 85
+Cast Type:	Long		Rarity:	Common to Legendary
+10s-31s Effect Length
+6.75-12 Block Radius
+
+
+Cascade a wave of frost magic in a radius around you, afflicting creatures with chilled. Chilled creatures become entombed in ice when fully frozen.
+Ice Block
+
+School:	Ice		Level:	1 to 6
+Cooldown:	15s		Mana:	40 to 90
+Cast Type:	Long		Rarity:	Rare to Legendary
+14-24 Damage
+
+
+
+Conjure a giant chunk of ice above a targeted creature or block. After a short delay, it will fall down and explode for area frost damage, doing additional damage to any creatures hit on the way down.
+Ice Spikes
+
+School:	Ice		Level:	1 to 10
+Cooldown:	15s		Mana:	30 to 120
+Cast Type:	Instant		Rarity:	Common to Legendary
+12-21 Damage
+8-22 Spikes
+
+
+Unleash a cascading line of ice magic, creating ice crystals that emerge from the ground. The final spike does full damage, and will emerge early if a creature within range is targeted.
+Ice Tomb
+
+School:	Ice		Level:	1 to 8
+Cooldown:	30s		Mana:	30 to 135
+Cast Type:	Instant		Rarity:	Uncommon to Legendary
+1 Healing
+5s-12s Duration
+
+
+Encase yourself in a protective tomb of ice, providing healing while within, absorbing one hit or counterspell before breaking. Dismount to leave the tomb.
+Icicle
+
+School:	Ice		Level:	1 to 10
+Cooldown:	1s		Mana:	10 to 28
+Cast Type:	Instant		Rarity:	Common to Legendary
+6-10.5 Damage
+
+
+
+Fire a piercing bolt of cold energy in the form of an icicle, freezing those it touches.
+Ray Of Frost
+
+School:	Ice		Level:	1 to 5
+Cooldown:	15s		Mana:	25 to 85
+Cast Type:	Instant		Rarity:	Common to Legendary
+12-18 Damage
+4.5s-7.5s Freeze Time
+30 Block Range
+
+Fire a beam of cold energy, dealing low damage but immediately applying freeze to the creature hit.
+Snowball
+
+School:	Ice		Level:	1 to 5
+Cooldown:	12s		Mana:	40 to 48
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+4-6 Block Radius
+10s Duration
+
+
+Conjure a giant snowball and throw it forward, bursting into a frosty field and Chilling creatures in a surrounding radius on impact. Chilled creatures become entombed in ice when fully frozen.
+Summon Polar Bear
+
+School:	Ice		Level:	1 to 10
+Cooldown:	180s		Mana:	50 to 140
+Cast Type:	Long		Rarity:	Rare to Legendary
+24-60 HP
+4-13 Damage
+
+
+Cast to summon a polar bear who will follow, protect, and fight for you, as well as providing a mount.
+Lightning Spells
+Ascension
+
+School:	Lightning		Level:	1 to 10
+Cooldown:	15s		Mana:	50 to 59
+Cast Type:	Instant		Rarity:	Rare to Legendary
+5-14 Damage
+
+
+
+Cast to strike lightning at your feet and ascend quickly into the air, and gain reduced gravity for a short duration. The lightning bolt deals damage and knocks back creatures struck.
+Ball Lightning
+
+School:	Lightning		Level:	1 to 10
+Cooldown:	1s		Mana:	20 to 56
+Cast Type:	Instant		Rarity:	Common to Legendary
+5-9.5 Damage
+
+
+
+Conjure an orb of lightning that slowly moves forward, damaging creatures it phases through and bouncing off blocks.
+Chain Lightning
+
+School:	Lightning		Level:	1 to 10
+Cooldown:	20s		Mana:	25 to 88
+Cast Type:	Instant		Rarity:	Uncommon to Legendary
+6-15 Damage
+4-13 Max Targets
+4-8.5 Block Range
+
+Start a chain of lightning from a targeted creature, causing waves of zapping magic to cascade to nearby creatures
+Charge
+
+School:	Lightning		Level:	1 to 3
+Cooldown:	40s		Mana:	50 to 100
+Cast Type:	Instant		Rarity:	Rare to Legendary
+30s-46s Effect Length
++20%-+60% Speed
++10%-+30% Attack Damage
++5%-+15% Spell Power
+Imbue yourself with the power of lightning, increasing your speed and combat abilities.
+Electrocute
+
+School:	Lightning		Level:	1 to 10
+Cooldown:	12s		Mana:	3 to 12
+Cast Type:	Continuous		Rarity:	Common to Legendary
+1-7.75 Damage
+
+
+
+Hold to manifest a cone of electrical energy, damaging creatures in its path.
+Lightning Bolt
+
+School:	Lightning		Level:	1 to 10
+Cooldown:	25s		Mana:	75 to 210
+Cast Type:	Instant		Rarity:	Epic to Legendary
+10-28 Damage
+
+
+
+Down from the heavens, summon a bolt of lightning.
+Lightning Lance
+
+School:	Lightning		Level:	1 to 10
+Cooldown:	8s		Mana:	50 to 140
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+14-32 Damage
+
+
+
+Hold to charge a spear made of lightning. Release to throw it like a javelin, dealing high damage to the creature it hits.
+Shockwave
+
+School:	Lightning		Level:	1 to 8
+Cooldown:	30s		Mana:	70 to 105
+Cast Type:	Long		Rarity:	Common to Legendary
+10-15.25 Damage
+9-16 Block Radius
+
+
+Coalesce a surge of electrical power, and unleash it in a devastating shockwave, blasting exposed creatures.
+Thunderstorm
+
+School:	Lightning		Level:	1 to 8
+Cooldown:	120s		Mana:	70 to 140
+Cast Type:	Long		Rarity:	Rare to Legendary
+8-15 Damage
+20 Block Radius
+20s-34s Effect Length
+
+Cast to conjure a thunderstorm centered around yourself, which strikes nearby creatures within sight with a small bolt of lightning every 2 seconds for the spell's duration.
+Volt Strike
+
+School:	Lightning		Level:	1 to 10
+Cooldown:	10s		Mana:	30 to 75
+Cast Type:	Instant		Rarity:	Common to Legendary
+6-15 Damage
+
+
+
+Leap forward in a spinning voltaic attack, striking the first creature or surface you hit, and dealing a residual blast in a small area around around the impact.
+Nature Spells
+Acid Orb
+
+School:	Nature		Level:	1 to 8
+Cooldown:	15s		Mana:	40 to 110
+Cast Type:	Long		Rarity:	Common to Legendary
+3 Block Radius
+20%-55% Reduced Armor
+20s Effect Length
+
+Spit an orb of acid, splashing in a radius upon impact and rending creatures hit, melting away and reducing their armor
+Blight
+
+School:	Nature		Level:	1 to 8
+Cooldown:	90s		Mana:	60 to 200
+Cast Type:	Long		Rarity:	Rare to Legendary
+10%-80% Reduced Healing
+5%-40% Reduced Damage
+30s Effect Length
+
+Target a creature to blight them, reducing their incoming healing and outgoing damage
+Earthquake
+
+School:	Nature		Level:	1 to 10
+Cooldown:	16s		Mana:	50 to 140
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+2-4.25 AOE Damage
+Slowness 1-3
+8 Block Radius
+
+Conjure an earthquake around a targeted creature or location, causing tremors to ripple through the ground, damaging and slowing creatures in the area.
+Firefly Swarm
+
+School:	Nature		Level:	1 to 10
+Cooldown:	20s		Mana:	40 to 130
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+2-5 AOE Damage
+2.0 Block Radius
+
+
+Emanate a swarm of violent fireflies, following a targeted creature and dealing aoe damage. If the initial target dies, the last harmed creature will be targeted.
+Gluttony
+
+School:	Nature		Level:	1 to 5
+Cooldown:	90s		Mana:	35 to 35
+Cast Type:	Instant		Rarity:	Common to Legendary
+2-4 Mana Recovery
+30s Effect Length
+
+
+Turn your stomach into an arcane furnace, turning eaten food into mana for a duration.
+Oakskin
+
+School:	Nature		Level:	1 to 8
+Cooldown:	90s		Mana:	15 to 50
+Cast Type:	Instant		Rarity:	Common to Legendary
++15%-+50% Damage Reduction
+-20% Speed
+20s-41s Effect Length
+
+The great power of oak infuses itself into your skin, granting damage reduction of any incoming damage for a duration.
+Poison Arrow
+
+School:	Nature		Level:	1 to 10
+Cooldown:	15s		Mana:	40 to 85
+Cast Type:	Long		Rarity:	Common to Legendary
+5-14 Damage
+0.9-2.5 AOE Damage
+
+
+Charge a powerful arrow, imbued with poison magic, that will release a poisonous cloud upon impact
+Poison Breath
+
+School:	Nature		Level:	1 to 10
+Cooldown:	12s		Mana:	5 to 14
+Cast Type:	Continuous		Rarity:	Common to Legendary
+1.75-8.5 Damage
+
+
+
+Spew forth a cone of poison, damaging and poisoning creatures in its reach
+Poison Splash
+
+School:	Nature		Level:	1 to 10
+Cooldown:	20s		Mana:	40 to 130
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+8-17 Damage
+7s-25s Effect Length
+
+
+Around a targeted creature or block, conjure a wave of poisonous magic that splashes down, damaging creatures hit and leaving behind a poisonous cloud
+Root
+
+School:	Nature		Level:	1 to 10
+Cooldown:	35s		Mana:	45 to 72
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+5s-14s Effect Length
+
+
+
+Around a targeted creature, sprout magical roots than entangle them and completely prevent non-magical movement
+Spider Aspect
+
+School:	Nature		Level:	1 to 8
+Cooldown:	90s		Mana:	35 to 70
+Cast Type:	Instant		Rarity:	Rare to Legendary
+5%-40% Additional Poisoned Damage
+20s-55s Effect Length
+
+
+Instill yourself with poisonous magic, dealing additional melee, ranged, or spell damage creatures that are poisoned
+Stomp
+
+School:	Nature		Level:	1 to 5
+Cooldown:	16s		Mana:	50 to 90
+Cast Type:	Long		Rarity:	Uncommon to Legendary
+8-16 Damage
+5-9 Block Range
+
+
+With a magic force, stomp the ground in front of you and send a short tremor forward through the ground, damaging creatures in its path.
+Touch Dig
+
+School:	Nature		Level:	1 to 3
+Cooldown:	0s		Mana:	15 to 15
+Cast Type:	Instant		Rarity:	Rare to Legendary
+Iron Harvest Level
+8 Block Range
+
+
+Use magic to break a block. Held items affect drops.
