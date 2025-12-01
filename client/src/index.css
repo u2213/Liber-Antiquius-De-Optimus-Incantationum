@@ -321,3 +321,20 @@
     inset: -1px;
   }
 }
+
+/* PageFlip centering fixes */
+.stf__wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.stf__parent {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.stf__block {
+  margin: 0 auto !important;
+}

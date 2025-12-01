@@ -107,35 +107,35 @@ export default function SpellBook() {
   useEffect(() => {
     if (!bookRef.current) return;
     
+    const pageWidth = Math.floor(dimensions.width / 2);
+    const pageHeight = Math.floor(dimensions.height);
+
     if (pageFlipInstanceRef.current) {
       try {
-        pageFlipInstanceRef.current.destroy();
+        pageFlipInstanceRef.current.update();
       } catch {
-        // Ignore cleanup errors
+        // Ignore update errors
       }
-      pageFlipInstanceRef.current = null;
+      return;
     }
 
     const initTimeout = setTimeout(() => {
-      if (!bookRef.current) return;
-
-      const pageWidth = Math.floor(dimensions.width / 2);
-      const pageHeight = Math.floor(dimensions.height);
+      if (!bookRef.current || pageFlipInstanceRef.current) return;
 
       try {
         const pageFlip = new PageFlip(bookRef.current, {
           width: pageWidth,
           height: pageHeight,
-          size: 'fixed',
+          size: 'stretch',
           minWidth: 250,
-          maxWidth: 800,
+          maxWidth: 1000,
           minHeight: 350,
-          maxHeight: 1000,
+          maxHeight: 1200,
           showCover: true,
           flippingTime: 800,
           usePortrait: false,
-          startZIndex: 0,
-          autoSize: false,
+          startZIndex: 10,
+          autoSize: true,
           maxShadowOpacity: 0.5,
           mobileScrollSupport: true,
           drawShadow: true,
@@ -148,7 +148,8 @@ export default function SpellBook() {
         }
 
         pageFlip.on('flip', (e: { data: number }) => {
-          setCurrentPage(e.data);
+          const pageIdx = Math.min(e.data, lastNavigableIdx);
+          setCurrentPage(pageIdx);
           isFlippingRef.current = false;
         });
 
@@ -161,19 +162,10 @@ export default function SpellBook() {
       } catch {
         // Ignore initialization errors
       }
-    }, 100);
+    }, 150);
 
     return () => {
       clearTimeout(initTimeout);
-      if (pageFlipInstanceRef.current) {
-        try {
-          pageFlipInstanceRef.current.destroy();
-        } catch {
-          // Ignore cleanup errors
-        }
-        pageFlipInstanceRef.current = null;
-      }
-      setIsInitialized(false);
     };
   }, [dimensions]);
 
