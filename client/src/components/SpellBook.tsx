@@ -46,9 +46,10 @@ function generatePages(): PageData[] {
 
 function getSchoolPageMap(pages: PageData[]): Record<string, number> {
   const map: Record<string, number> = {};
-  for (const page of pages) {
-    if (page.type === 'school-header' && page.schoolName && !map[page.schoolName]) {
-      map[page.schoolName] = page.pageNumber;
+  for (let i = 0; i < pages.length; i++) {
+    const page = pages[i];
+    if (page.type === 'school-header' && page.schoolName && !(page.schoolName in map)) {
+      map[page.schoolName] = i;
     }
   }
   return map;
@@ -56,16 +57,16 @@ function getSchoolPageMap(pages: PageData[]): Record<string, number> {
 
 const pages = generatePages();
 const schoolPageMap = getSchoolPageMap(pages);
+const lastNavigableIdx = pages.length - 2;
 
 export default function SpellBook() {
   const containerRef = useRef<HTMLDivElement>(null);
   const bookRef = useRef<HTMLDivElement>(null);
   const pageFlipInstanceRef = useRef<PageFlip | null>(null);
+  const isFlippingRef = useRef(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
   const [isInitialized, setIsInitialized] = useState(false);
-
-  const totalPages = pages.length;
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -148,6 +149,11 @@ export default function SpellBook() {
 
         pageFlip.on('flip', (e: { data: number }) => {
           setCurrentPage(e.data);
+          isFlippingRef.current = false;
+        });
+
+        pageFlip.on('changeState', (e: { data: string }) => {
+          isFlippingRef.current = e.data === 'flipping';
         });
 
         pageFlipInstanceRef.current = pageFlip;
@@ -173,34 +179,40 @@ export default function SpellBook() {
 
   const safeFlip = useCallback((action: 'prev' | 'next' | number) => {
     const pf = pageFlipInstanceRef.current;
-    if (!pf) return;
+    if (!pf || isFlippingRef.current) return;
     
     try {
-      const state = pf.getState();
-      if (state === 'flipping') return;
+      const currentIdx = pf.getCurrentPageIndex();
       
       if (action === 'prev') {
-        pf.flipPrev();
+        if (currentIdx > 0) {
+          isFlippingRef.current = true;
+          pf.flipPrev();
+        }
       } else if (action === 'next') {
-        pf.flipNext();
+        if (currentIdx < lastNavigableIdx) {
+          isFlippingRef.current = true;
+          pf.flipNext();
+        }
       } else if (typeof action === 'number') {
-        pf.turnToPage(action);
+        const targetPage = Math.max(0, Math.min(action, lastNavigableIdx));
+        if (targetPage !== currentIdx) {
+          isFlippingRef.current = true;
+          pf.turnToPage(targetPage);
+        }
       }
     } catch {
-      // Ignore errors if library not ready
+      isFlippingRef.current = false;
     }
   }, []);
 
   const handlePrevious = useCallback(() => safeFlip('prev'), [safeFlip]);
   const handleNext = useCallback(() => safeFlip('next'), [safeFlip]);
   const handleFirst = useCallback(() => safeFlip(0), [safeFlip]);
-  const handleLast = useCallback(() => safeFlip(totalPages - 1), [safeFlip, totalPages]);
+  const handleLast = useCallback(() => safeFlip(lastNavigableIdx), [safeFlip]);
 
   const handleSchoolSelect = useCallback((_schoolName: string, pageIndex: number) => {
-    const targetPageIndex = pages.findIndex(p => p.pageNumber === pageIndex);
-    if (targetPageIndex >= 0) {
-      safeFlip(targetPageIndex);
-    }
+    safeFlip(pageIndex);
   }, [safeFlip]);
 
   const handleSpellSelect = useCallback((spell: Spell) => {
@@ -296,7 +308,7 @@ export default function SpellBook() {
       <div className="flex justify-center pb-3 z-50">
         <PageNavigation
           currentPage={currentPage + 1}
-          totalPages={totalPages}
+          totalPages={lastNavigableIdx + 1}
           onPrevious={handlePrevious}
           onNext={handleNext}
           onFirst={handleFirst}

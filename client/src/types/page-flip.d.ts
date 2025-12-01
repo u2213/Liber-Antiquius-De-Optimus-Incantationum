@@ -41,7 +41,9 @@ declare module 'page-flip' {
     getBoundsRect(): DOMRect;
     getState(): 'read' | 'flipping' | 'user_fold' | 'fold_corner';
     
-    on(eventName: string, callback: (e: { data: number }) => void): void;
+    on(eventName: 'flip', callback: (e: { data: number }) => void): void;
+    on(eventName: 'changeState', callback: (e: { data: string }) => void): void;
+    on(eventName: string, callback: (e: { data: unknown }) => void): void;
     off(eventName: string): void;
     
     destroy(): void;
