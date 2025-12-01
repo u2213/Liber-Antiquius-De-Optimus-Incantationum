@@ -3,98 +3,100 @@ import { Badge } from "@/components/ui/badge";
 
 interface SpellCardProps {
   spell: Spell;
-  compact?: boolean;
 }
 
-export default function SpellCard({ spell, compact = false }: SpellCardProps) {
+export default function SpellCard({ spell }: SpellCardProps) {
   const schoolColor = getSchoolColor(spell.school);
   
   return (
     <article 
-      className={`spell-card relative ${compact ? 'p-3' : 'p-4'}`}
+      className="spell-card relative p-2"
       data-testid={`spell-card-${spell.id}`}
     >
-      <div className="flex flex-col items-center gap-3">
+      <div className="flex gap-3">
         <div 
-          className="relative"
-          style={{ width: compact ? 100 : 120, height: compact ? 100 : 120 }}
+          className="relative flex-shrink-0"
+          style={{ width: 80, height: 80 }}
         >
           <div 
-            className="absolute inset-0 rounded-md border-4"
+            className="absolute inset-0 rounded-md border-3"
             style={{ 
               borderColor: schoolColor,
+              borderWidth: 3,
               background: `linear-gradient(135deg, hsl(39 35% 88% / 0.3), hsl(35 25% 75% / 0.5))`,
-              boxShadow: `0 0 20px ${schoolColor}40, inset 0 0 15px ${schoolColor}20`
+              boxShadow: `0 0 12px ${schoolColor}40, inset 0 0 8px ${schoolColor}20`
             }}
           />
           <img 
             src={spell.imageUrl}
             alt={spell.name}
-            className="absolute inset-2 object-contain"
+            className="absolute inset-1 object-contain"
             style={{ 
               imageRendering: 'pixelated',
-              width: compact ? 84 : 104,
-              height: compact ? 84 : 104
+              width: 72,
+              height: 72
             }}
             loading="lazy"
             onError={(e) => {
-              (e.target as HTMLImageElement).src = `https://placehold.co/80x80/2a1a0a/d4a574?text=${encodeURIComponent(spell.name.charAt(0))}`;
+              (e.target as HTMLImageElement).src = `https://placehold.co/64x64/2a1a0a/d4a574?text=${encodeURIComponent(spell.name.charAt(0))}`;
             }}
           />
         </div>
 
-        <h3 
-          className={`font-serif font-semibold text-center tracking-wide ${compact ? 'text-lg' : 'text-xl'}`}
-          style={{ color: schoolColor }}
-        >
-          {spell.name}
-        </h3>
+        <div className="flex-1 min-w-0">
+          <h3 
+            className="font-serif font-semibold tracking-wide text-base mb-1"
+            style={{ color: schoolColor }}
+          >
+            {spell.name}
+          </h3>
 
-        <div className={`w-full grid grid-cols-2 gap-x-4 gap-y-1 ${compact ? 'text-xs' : 'text-sm'}`}>
-          <div className="flex justify-between">
-            <span className="uppercase tracking-widest text-muted-foreground font-medium text-[10px]">School</span>
-            <span className="font-medium" style={{ color: schoolColor }}>{spell.school}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="uppercase tracking-widest text-muted-foreground font-medium text-[10px]">Level</span>
-            <span>{spell.level}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="uppercase tracking-widest text-muted-foreground font-medium text-[10px]">Cooldown</span>
-            <span>{spell.cooldown}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="uppercase tracking-widest text-muted-foreground font-medium text-[10px]">Mana</span>
-            <span className="text-blue-400">{spell.mana}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="uppercase tracking-widest text-muted-foreground font-medium text-[10px]">Cast</span>
-            <span>{spell.castType}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="uppercase tracking-widest text-muted-foreground font-medium text-[10px]">Rarity</span>
-            <span className="text-amber-500">{spell.rarity}</span>
+          <div className="grid grid-cols-3 gap-x-2 gap-y-0.5 text-[11px]">
+            <div className="flex flex-col">
+              <span className="uppercase tracking-wider text-muted-foreground font-medium text-[9px]">School</span>
+              <span className="font-medium" style={{ color: schoolColor }}>{spell.school}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="uppercase tracking-wider text-muted-foreground font-medium text-[9px]">Level</span>
+              <span>{spell.level}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="uppercase tracking-wider text-muted-foreground font-medium text-[9px]">Cast</span>
+              <span>{spell.castType}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="uppercase tracking-wider text-muted-foreground font-medium text-[9px]">Cooldown</span>
+              <span>{spell.cooldown}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="uppercase tracking-wider text-muted-foreground font-medium text-[9px]">Mana</span>
+              <span className="text-blue-600">{spell.mana}</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="uppercase tracking-wider text-muted-foreground font-medium text-[9px]">Rarity</span>
+              <span className="text-amber-600 truncate">{spell.rarity}</span>
+            </div>
           </div>
         </div>
-
-        {spell.uniqueInfo.length > 0 && (
-          <div className="flex flex-wrap gap-1 justify-center">
-            {spell.uniqueInfo.map((info, idx) => (
-              <Badge 
-                key={idx} 
-                variant="secondary"
-                className={`${compact ? 'text-[10px] px-1.5 py-0' : 'text-xs px-2 py-0.5'}`}
-              >
-                {info}
-              </Badge>
-            ))}
-          </div>
-        )}
-
-        <p className={`text-center italic text-muted-foreground leading-relaxed ${compact ? 'text-xs' : 'text-sm'}`}>
-          {spell.description}
-        </p>
       </div>
+
+      {spell.uniqueInfo.length > 0 && (
+        <div className="flex flex-wrap gap-1 mt-2">
+          {spell.uniqueInfo.map((info, idx) => (
+            <Badge 
+              key={idx} 
+              variant="secondary"
+              className="text-[10px] px-1.5 py-0 h-4"
+            >
+              {info}
+            </Badge>
+          ))}
+        </div>
+      )}
+
+      <p className="text-[11px] mt-2 italic text-muted-foreground leading-snug line-clamp-3">
+        {spell.description}
+      </p>
     </article>
   );
 }

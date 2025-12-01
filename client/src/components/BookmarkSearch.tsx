@@ -52,33 +52,33 @@ export default function BookmarkSearch({ onSpellSelect }: BookmarkSearchProps) {
   return (
     <div 
       ref={containerRef}
-      className="relative z-50"
+      className="relative"
       data-testid="bookmark-search"
     >
       <div 
-        className="relative flex items-center"
+        className="relative flex items-center min-w-[200px]"
         style={{
-          background: 'linear-gradient(180deg, hsl(15 70% 25%), hsl(15 60% 20%))',
-          borderRadius: '0 0 8px 8px',
-          padding: '8px 16px 12px 16px',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-          clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
+          background: 'linear-gradient(180deg, hsl(15 70% 28%), hsl(15 60% 22%))',
+          borderRadius: '0 0 12px 12px',
+          padding: '10px 20px 16px 20px',
+          boxShadow: '0 6px 20px rgba(0,0,0,0.5)',
+          clipPath: 'polygon(0 0, 100% 0, 92% 100%, 8% 100%)',
         }}
       >
-        <Search className="w-4 h-4 text-amber-200/70 mr-2" />
+        <Search className="w-4 h-4 text-amber-200/70 mr-2 flex-shrink-0" />
         <Input
           ref={inputRef}
           type="search"
           placeholder="Search spells..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="bg-transparent border-0 border-b border-amber-200/30 rounded-none text-amber-100 placeholder:text-amber-200/50 focus-visible:ring-0 focus-visible:border-amber-200/60 h-7 text-sm"
+          className="bg-transparent border-0 border-b border-amber-200/30 rounded-none text-amber-100 placeholder:text-amber-200/50 focus-visible:ring-0 focus-visible:border-amber-200/60 h-7 text-sm w-[140px]"
           data-testid="search-input"
         />
         {query && (
           <button
             onClick={handleClear}
-            className="ml-2 text-amber-200/70 hover:text-amber-100 transition-colors"
+            className="ml-2 text-amber-200/70 hover:text-amber-100 transition-colors flex-shrink-0"
             data-testid="search-clear"
           >
             <X className="w-4 h-4" />
@@ -88,7 +88,7 @@ export default function BookmarkSearch({ onSpellSelect }: BookmarkSearchProps) {
 
       {isOpen && results.length > 0 && (
         <div 
-          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-md overflow-hidden"
+          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-md overflow-hidden z-50"
           style={{
             background: 'linear-gradient(180deg, hsl(39 35% 88%), hsl(35 25% 80%))',
             boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
@@ -106,7 +106,7 @@ export default function BookmarkSearch({ onSpellSelect }: BookmarkSearchProps) {
                 <img 
                   src={spell.imageUrl}
                   alt=""
-                  className="w-8 h-8 object-contain"
+                  className="w-8 h-8 object-contain flex-shrink-0"
                   style={{ imageRendering: 'pixelated' }}
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = 'none';
@@ -131,7 +131,7 @@ export default function BookmarkSearch({ onSpellSelect }: BookmarkSearchProps) {
 
       {isOpen && results.length === 0 && query.length >= 2 && (
         <div 
-          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-md p-4 text-center text-muted-foreground text-sm"
+          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-md p-4 text-center text-muted-foreground text-sm z-50"
           style={{
             background: 'linear-gradient(180deg, hsl(39 35% 88%), hsl(35 25% 80%))',
             boxShadow: '0 8px 24px rgba(0,0,0,0.4)',

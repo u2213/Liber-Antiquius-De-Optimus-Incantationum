@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { PageFlip } from 'page-flip';
-import { spellSchools, getAllSpells, Spell } from '@/lib/spellData';
+import { spellSchools, Spell } from '@/lib/spellData';
 import BookCover from './BookCover';
 import TableOfContents from './TableOfContents';
 import SpellPage from './SpellPage';
@@ -19,18 +19,14 @@ function generatePages(): PageData[] {
   let pageNumber = 1;
 
   pages.push({ type: 'cover', pageNumber: 0 });
-
   pages.push({ type: 'toc', pageNumber: pageNumber++ });
 
   for (const school of spellSchools) {
-    const spellsPerPage = 2;
-    const schoolSpells = [...school.spells];
-    
-    for (let i = 0; i < schoolSpells.length; i += spellsPerPage) {
-      const pageSpells = schoolSpells.slice(i, i + spellsPerPage);
+    for (let i = 0; i < school.spells.length; i++) {
+      const isFirst = i === 0;
       pages.push({
-        type: i === 0 ? 'school-header' : 'spells',
-        spells: pageSpells,
+        type: isFirst ? 'school-header' : 'spells',
+        spells: [school.spells[i]],
         schoolName: school.name,
         pageNumber: pageNumber++,
       });
@@ -52,27 +48,65 @@ function getSchoolPageMap(pages: PageData[]): Record<string, number> {
   return map;
 }
 
-export default function SpellBook() {
-  const bookRef = useRef<HTMLDivElement>(null);
-  const pageFlipRef = useRef<PageFlip | null>(null);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [isReady, setIsReady] = useState(false);
+const pages = generatePages();
+const schoolPageMap = getSchoolPageMap(pages);
 
-  const pages = generatePages();
-  const schoolPageMap = getSchoolPageMap(pages);
+export default function SpellBook() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const bookRef = useRef<HTMLDivElement>(null);
+  const pageFlipInstanceRef = useRef<PageFlip | null>(null);
+  const initializingRef = useRef(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
+
   const totalPages = pages.length;
 
   useEffect(() => {
-    if (!bookRef.current || pageFlipRef.current) return;
+    const updateDimensions = () => {
+      const containerWidth = window.innerWidth;
+      const containerHeight = window.innerHeight;
+      
+      const bookAspectRatio = 1.5;
+      const navHeight = 100;
+      const bookmarkHeight = 70;
+      const availableHeight = containerHeight - navHeight - bookmarkHeight;
+      const availableWidth = containerWidth - 60;
+      
+      let bookWidth = availableWidth;
+      let bookHeight = bookWidth / bookAspectRatio;
+      
+      if (bookHeight > availableHeight) {
+        bookHeight = availableHeight;
+        bookWidth = bookHeight * bookAspectRatio;
+      }
+      
+      bookWidth = Math.max(600, Math.min(1400, bookWidth));
+      bookHeight = bookWidth / bookAspectRatio;
+      
+      setDimensions({ width: bookWidth, height: bookHeight });
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  useEffect(() => {
+    if (!bookRef.current || initializingRef.current) return;
+    
+    initializingRef.current = true;
+
+    const pageWidth = Math.floor(dimensions.width / 2);
+    const pageHeight = Math.floor(dimensions.height);
 
     const pageFlip = new PageFlip(bookRef.current, {
-      width: 380,
-      height: 520,
+      width: pageWidth,
+      height: pageHeight,
       size: 'fixed',
       minWidth: 300,
-      maxWidth: 500,
+      maxWidth: 700,
       minHeight: 400,
-      maxHeight: 700,
+      maxHeight: 900,
       showCover: true,
       flippingTime: 800,
       usePortrait: false,
@@ -93,64 +127,72 @@ export default function SpellBook() {
       setCurrentPage(e.data);
     });
 
-    pageFlipRef.current = pageFlip;
-    setIsReady(true);
+    pageFlipInstanceRef.current = pageFlip;
+    initializingRef.current = false;
 
     return () => {
-      if (pageFlipRef.current) {
-        pageFlipRef.current.destroy();
-        pageFlipRef.current = null;
+      if (pageFlipInstanceRef.current) {
+        try {
+          pageFlipInstanceRef.current.destroy();
+        } catch {
+          // Ignore errors during cleanup
+        }
+        pageFlipInstanceRef.current = null;
       }
+      initializingRef.current = false;
     };
-  }, []);
+  }, [dimensions]);
 
-  const flipToPage = useCallback((pageIndex: number) => {
-    if (pageFlipRef.current) {
-      pageFlipRef.current.turnToPage(pageIndex);
+  const safeFlip = useCallback((action: 'prev' | 'next' | number) => {
+    const pf = pageFlipInstanceRef.current;
+    if (!pf) return;
+    
+    try {
+      const state = pf.getState();
+      if (state === 'flipping') return;
+      
+      if (action === 'prev') {
+        pf.flipPrev();
+      } else if (action === 'next') {
+        pf.flipNext();
+      } else if (typeof action === 'number') {
+        pf.turnToPage(action);
+      }
+    } catch {
+      // Ignore errors if library not ready
     }
   }, []);
 
-  const handlePrevious = useCallback(() => {
-    if (pageFlipRef.current) {
-      pageFlipRef.current.flipPrev();
-    }
-  }, []);
-
-  const handleNext = useCallback(() => {
-    if (pageFlipRef.current) {
-      pageFlipRef.current.flipNext();
-    }
-  }, []);
-
-  const handleFirst = useCallback(() => {
-    flipToPage(0);
-  }, [flipToPage]);
-
-  const handleLast = useCallback(() => {
-    flipToPage(totalPages - 1);
-  }, [flipToPage, totalPages]);
+  const handlePrevious = useCallback(() => safeFlip('prev'), [safeFlip]);
+  const handleNext = useCallback(() => safeFlip('next'), [safeFlip]);
+  const handleFirst = useCallback(() => safeFlip(0), [safeFlip]);
+  const handleLast = useCallback(() => safeFlip(totalPages - 1), [safeFlip, totalPages]);
 
   const handleSchoolSelect = useCallback((_schoolName: string, pageIndex: number) => {
     const targetPageIndex = pages.findIndex(p => p.pageNumber === pageIndex);
     if (targetPageIndex >= 0) {
-      flipToPage(targetPageIndex);
+      safeFlip(targetPageIndex);
     }
-  }, [pages, flipToPage]);
+  }, [safeFlip]);
 
   const handleSpellSelect = useCallback((spell: Spell) => {
     const pageIndex = pages.findIndex(
       p => p.spells?.some(s => s.id === spell.id)
     );
     if (pageIndex >= 0) {
-      flipToPage(pageIndex);
+      safeFlip(pageIndex);
     }
-  }, [pages, flipToPage]);
+  }, [safeFlip]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement) return;
+      
       if (e.key === 'ArrowLeft') {
+        e.preventDefault();
         handlePrevious();
       } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
         handleNext();
       }
     };
@@ -197,42 +239,39 @@ export default function SpellBook() {
 
   return (
     <div 
-      className="min-h-screen flex flex-col items-center justify-center p-4 relative"
+      ref={containerRef}
+      className="h-screen w-screen flex flex-col items-center justify-center overflow-hidden"
       style={{
         background: 'radial-gradient(ellipse at center, hsl(30 10% 15%), hsl(25 8% 8%))',
       }}
     >
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50">
-        <BookmarkSearch onSpellSelect={handleSpellSelect} />
-      </div>
+      <div className="flex flex-col items-center">
+        <div className="relative z-50 mb-[-24px]">
+          <BookmarkSearch onSpellSelect={handleSpellSelect} />
+        </div>
 
-      <div className="flex-1 flex items-center justify-center pt-16 pb-20">
         <div 
           ref={bookRef}
           className="relative"
           style={{
-            width: 760,
-            height: 520,
+            width: dimensions.width,
+            height: dimensions.height,
           }}
           data-testid="spell-book"
         >
           {pages.map((page, index) => renderPage(page, index))}
         </div>
-      </div>
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
-        <PageNavigation
-          currentPage={currentPage + 1}
-          totalPages={totalPages}
-          onPrevious={handlePrevious}
-          onNext={handleNext}
-          onFirst={handleFirst}
-          onLast={handleLast}
-        />
-      </div>
-
-      <div className="absolute bottom-4 right-4 text-amber-200/30 text-xs">
-        Use arrow keys or click pages to navigate
+        <div className="mt-4">
+          <PageNavigation
+            currentPage={currentPage + 1}
+            totalPages={totalPages}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+            onFirst={handleFirst}
+            onLast={handleLast}
+          />
+        </div>
       </div>
     </div>
   );
