@@ -14,6 +14,8 @@ interface PageData {
   pageNumber: number;
 }
 
+const SPELLS_PER_PAGE = 2;
+
 function generatePages(): PageData[] {
   const pages: PageData[] = [];
   let pageNumber = 1;
@@ -22,11 +24,15 @@ function generatePages(): PageData[] {
   pages.push({ type: 'toc', pageNumber: pageNumber++ });
 
   for (const school of spellSchools) {
-    for (let i = 0; i < school.spells.length; i++) {
+    const schoolSpells = [...school.spells];
+    
+    for (let i = 0; i < schoolSpells.length; i += SPELLS_PER_PAGE) {
+      const pageSpells = schoolSpells.slice(i, i + SPELLS_PER_PAGE);
       const isFirst = i === 0;
+      
       pages.push({
         type: isFirst ? 'school-header' : 'spells',
-        spells: [school.spells[i]],
+        spells: pageSpells,
         schoolName: school.name,
         pageNumber: pageNumber++,
       });
@@ -55,22 +61,25 @@ export default function SpellBook() {
   const containerRef = useRef<HTMLDivElement>(null);
   const bookRef = useRef<HTMLDivElement>(null);
   const pageFlipInstanceRef = useRef<PageFlip | null>(null);
-  const initializingRef = useRef(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const totalPages = pages.length;
 
   useEffect(() => {
     const updateDimensions = () => {
-      const containerWidth = window.innerWidth;
-      const containerHeight = window.innerHeight;
+      const vh = window.innerHeight;
+      const vw = window.innerWidth;
       
-      const bookAspectRatio = 1.5;
-      const navHeight = 100;
-      const bookmarkHeight = 70;
-      const availableHeight = containerHeight - navHeight - bookmarkHeight;
-      const availableWidth = containerWidth - 60;
+      const navHeight = 70;
+      const bookmarkHeight = 60;
+      const padding = 40;
+      
+      const availableHeight = vh - navHeight - bookmarkHeight - padding;
+      const availableWidth = vw - padding;
+      
+      const bookAspectRatio = 1.4;
       
       let bookWidth = availableWidth;
       let bookHeight = bookWidth / bookAspectRatio;
@@ -80,10 +89,13 @@ export default function SpellBook() {
         bookWidth = bookHeight * bookAspectRatio;
       }
       
-      bookWidth = Math.max(600, Math.min(1400, bookWidth));
+      bookWidth = Math.min(1600, Math.max(500, bookWidth));
       bookHeight = bookWidth / bookAspectRatio;
       
-      setDimensions({ width: bookWidth, height: bookHeight });
+      setDimensions({ 
+        width: Math.floor(bookWidth), 
+        height: Math.floor(bookHeight) 
+      });
     };
 
     updateDimensions();
@@ -92,54 +104,70 @@ export default function SpellBook() {
   }, []);
 
   useEffect(() => {
-    if (!bookRef.current || initializingRef.current) return;
+    if (!bookRef.current) return;
     
-    initializingRef.current = true;
-
-    const pageWidth = Math.floor(dimensions.width / 2);
-    const pageHeight = Math.floor(dimensions.height);
-
-    const pageFlip = new PageFlip(bookRef.current, {
-      width: pageWidth,
-      height: pageHeight,
-      size: 'fixed',
-      minWidth: 300,
-      maxWidth: 700,
-      minHeight: 400,
-      maxHeight: 900,
-      showCover: true,
-      flippingTime: 800,
-      usePortrait: false,
-      startZIndex: 0,
-      autoSize: false,
-      maxShadowOpacity: 0.5,
-      mobileScrollSupport: true,
-      drawShadow: true,
-      useMouseEvents: true,
-    });
-
-    const pageElements = bookRef.current.querySelectorAll('.page');
-    if (pageElements.length > 0) {
-      pageFlip.loadFromHTML(pageElements);
+    if (pageFlipInstanceRef.current) {
+      try {
+        pageFlipInstanceRef.current.destroy();
+      } catch {
+        // Ignore cleanup errors
+      }
+      pageFlipInstanceRef.current = null;
     }
 
-    pageFlip.on('flip', (e: { data: number }) => {
-      setCurrentPage(e.data);
-    });
+    const initTimeout = setTimeout(() => {
+      if (!bookRef.current) return;
 
-    pageFlipInstanceRef.current = pageFlip;
-    initializingRef.current = false;
+      const pageWidth = Math.floor(dimensions.width / 2);
+      const pageHeight = Math.floor(dimensions.height);
+
+      try {
+        const pageFlip = new PageFlip(bookRef.current, {
+          width: pageWidth,
+          height: pageHeight,
+          size: 'fixed',
+          minWidth: 250,
+          maxWidth: 800,
+          minHeight: 350,
+          maxHeight: 1000,
+          showCover: true,
+          flippingTime: 800,
+          usePortrait: false,
+          startZIndex: 0,
+          autoSize: false,
+          maxShadowOpacity: 0.5,
+          mobileScrollSupport: true,
+          drawShadow: true,
+          useMouseEvents: true,
+        });
+
+        const pageElements = bookRef.current.querySelectorAll('.page');
+        if (pageElements.length > 0) {
+          pageFlip.loadFromHTML(pageElements);
+        }
+
+        pageFlip.on('flip', (e: { data: number }) => {
+          setCurrentPage(e.data);
+        });
+
+        pageFlipInstanceRef.current = pageFlip;
+        setIsInitialized(true);
+      } catch {
+        // Ignore initialization errors
+      }
+    }, 100);
 
     return () => {
+      clearTimeout(initTimeout);
       if (pageFlipInstanceRef.current) {
         try {
           pageFlipInstanceRef.current.destroy();
         } catch {
-          // Ignore errors during cleanup
+          // Ignore cleanup errors
         }
         pageFlipInstanceRef.current = null;
       }
-      initializingRef.current = false;
+      setIsInitialized(false);
     };
   }, [dimensions]);
 
@@ -240,38 +268,40 @@ export default function SpellBook() {
   return (
     <div 
       ref={containerRef}
-      className="h-screen w-screen flex flex-col items-center justify-center overflow-hidden"
+      className="h-screen w-screen flex flex-col overflow-hidden"
       style={{
         background: 'radial-gradient(ellipse at center, hsl(30 10% 15%), hsl(25 8% 8%))',
       }}
     >
-      <div className="flex flex-col items-center">
-        <div className="relative z-50 mb-[-24px]">
-          <BookmarkSearch onSpellSelect={handleSpellSelect} />
-        </div>
+      <div className="flex justify-center pt-2 z-50">
+        <BookmarkSearch onSpellSelect={handleSpellSelect} />
+      </div>
 
+      <div className="flex-1 flex items-center justify-center min-h-0 px-4">
         <div 
           ref={bookRef}
           className="relative"
           style={{
             width: dimensions.width,
             height: dimensions.height,
+            opacity: isInitialized ? 1 : 0.5,
+            transition: 'opacity 0.3s ease',
           }}
           data-testid="spell-book"
         >
           {pages.map((page, index) => renderPage(page, index))}
         </div>
+      </div>
 
-        <div className="mt-4">
-          <PageNavigation
-            currentPage={currentPage + 1}
-            totalPages={totalPages}
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-            onFirst={handleFirst}
-            onLast={handleLast}
-          />
-        </div>
+      <div className="flex justify-center pb-3 z-50">
+        <PageNavigation
+          currentPage={currentPage + 1}
+          totalPages={totalPages}
+          onPrevious={handlePrevious}
+          onNext={handleNext}
+          onFirst={handleFirst}
+          onLast={handleLast}
+        />
       </div>
     </div>
   );
