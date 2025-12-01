@@ -28,8 +28,8 @@ export default function SpellCard({ spell }: SpellCardProps) {
           <img 
             src={spell.imageUrl}
             alt={spell.name}
-            className="absolute inset-0.5 sm:inset-1 object-contain"
-            style={{ imageRendering: 'pixelated' }}
+            className="absolute inset-0.5 sm:inset-1 w-[calc(100%-4px)] h-[calc(100%-4px)] sm:w-[calc(100%-8px)] sm:h-[calc(100%-8px)]"
+            style={{ imageRendering: 'pixelated', objectFit: 'contain' }}
             loading="lazy"
             onError={(e) => {
               (e.target as HTMLImageElement).src = `https://placehold.co/64x64/2a1a0a/d4a574?text=${encodeURIComponent(spell.name.charAt(0))}`;
@@ -83,7 +83,7 @@ export default function SpellCard({ spell }: SpellCardProps) {
         </div>
       )}
 
-      <p className="text-xs sm:text-sm mt-1.5 sm:mt-2 italic text-amber-800/80 leading-snug line-clamp-2 flex-1">
+      <p className="text-sm sm:text-base mt-1.5 sm:mt-2 italic text-amber-800/80 leading-relaxed line-clamp-3 flex-1">
         {spell.description}
       </p>
     </article>

@@ -105,8 +105,8 @@ export default function BookmarkSearch({ onSpellSelect }: BookmarkSearchProps) {
                 <img 
                   src={spell.imageUrl}
                   alt=""
-                  className="w-8 h-8 object-contain flex-shrink-0"
-                  style={{ imageRendering: 'pixelated' }}
+                  className="w-8 h-8 flex-shrink-0"
+                  style={{ imageRendering: 'pixelated', objectFit: 'contain' }}
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = 'none';
                   }}
