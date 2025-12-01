@@ -83,12 +83,7 @@ export default function BookCover({ type }: BookCoverProps) {
             boxShadow: '0 0 40px hsl(270 60% 40% / 0.3)',
           }}
         >
-          <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-12 sm:h-12 text-amber-400">
-            <path 
-              fill="currentColor" 
-              d="M12 2L13.09 8.26L19 6L14.74 10.91L21 12L14.74 13.09L19 18L13.09 15.74L12 22L10.91 15.74L5 18L9.26 13.09L3 12L9.26 10.91L5 6L10.91 8.26L12 2Z"
-            />
-          </svg>
+          <img src="/arcanum-icon.png" alt="Arcanum icon" className="w-16 h-16 sm:w-24 sm:h-24 object-contain" />
         </div>
 
         <h1 
