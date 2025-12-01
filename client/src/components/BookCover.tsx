@@ -84,6 +84,10 @@ export default function BookCover({ type }: BookCoverProps) {
       <div className="relative h-full flex flex-col items-center justify-center px-4 sm:px-8 text-center">
         <div 
           className={`w-40 h-40 sm:w-64 sm:h-64 mb-8 sm:mb-12 flex items-center justify-center glow-cycle ${glowCycle}`}
+          style={{
+            border: '3px solid hsl(40 80% 60%)',
+            boxShadow: 'inset 0 0 20px hsl(40 80% 50% / 0.3)',
+          }}
         >
           <img src="/arcanum-icon.png" alt="Arcanum icon" className="w-32 h-32 sm:w-56 sm:h-56 object-contain" />
         </div>
