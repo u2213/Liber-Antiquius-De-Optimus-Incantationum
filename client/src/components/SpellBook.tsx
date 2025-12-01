@@ -206,7 +206,7 @@ export default function SpellBook() {
         if (instant) {
           pf.turnToPage(current - 1);
         } else {
-          pf.flipPrev();
+          pf.flip(current - 1);
         }
       } catch {
         // Ignore flip errors
