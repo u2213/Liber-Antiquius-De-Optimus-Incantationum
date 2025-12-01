@@ -1,8 +1,14 @@
+import { useMemo } from 'react';
+
 interface BookCoverProps {
   type: 'front' | 'back';
 }
 
 export default function BookCover({ type }: BookCoverProps) {
+  const glowCycle = useMemo(() => {
+    const cycles = ['', 'cycle-2', 'cycle-3'];
+    return cycles[Math.floor(Math.random() * cycles.length)];
+  }, []);
   if (type === 'back') {
     return (
       <div 
@@ -13,7 +19,7 @@ export default function BookCover({ type }: BookCoverProps) {
       >
         <div className="text-center text-amber-200/30">
           <div className="font-serif text-xs sm:text-sm tracking-widest uppercase">
-            Iron's Spells n Spellbooks
+            Soli maximi has facultates exercere possunt.
           </div>
         </div>
       </div>
@@ -77,13 +83,12 @@ export default function BookCover({ type }: BookCoverProps) {
 
       <div className="relative h-full flex flex-col items-center justify-center px-4 sm:px-8 text-center">
         <div 
-          className="w-16 h-16 sm:w-24 sm:h-24 mb-4 sm:mb-6 rounded-full flex items-center justify-center"
+          className={`w-24 h-24 sm:w-40 sm:h-40 mb-6 sm:mb-8 rounded-full flex items-center justify-center glow-cycle ${glowCycle}`}
           style={{
             background: 'radial-gradient(circle, hsl(270 60% 40% / 0.3), transparent)',
-            boxShadow: '0 0 40px hsl(270 60% 40% / 0.3)',
           }}
         >
-          <img src="/arcanum-icon.png" alt="Arcanum icon" className="w-16 h-16 sm:w-24 sm:h-24 object-contain" />
+          <img src="/arcanum-icon.png" alt="Arcanum icon" className="w-20 h-20 sm:w-32 sm:h-32 object-contain" />
         </div>
 
         <h1 
@@ -93,7 +98,7 @@ export default function BookCover({ type }: BookCoverProps) {
             textShadow: '0 2px 10px rgba(0,0,0,0.5), 0 0 30px hsl(40 70% 50% / 0.3)',
           }}
         >
-          Ancient Spell
+          Liberus Anticqus de
         </h1>
         <h2 
           className="font-serif text-xl sm:text-3xl font-bold tracking-wider mb-4 sm:mb-6"
@@ -102,7 +107,7 @@ export default function BookCover({ type }: BookCoverProps) {
             textShadow: '0 2px 10px rgba(0,0,0,0.5), 0 0 30px hsl(40 70% 50% / 0.3)',
           }}
         >
-          Compendium
+          Optimus Incantationibus
         </h2>
 
         <div className="w-32 sm:w-48 h-0.5 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent mb-4 sm:mb-6" />
@@ -111,13 +116,13 @@ export default function BookCover({ type }: BookCoverProps) {
           className="text-amber-200/60 text-xs sm:text-sm italic font-serif"
           style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}
         >
-          A collection of arcane knowledge
+          Scientia Antiqua
         </p>
         <p 
           className="text-amber-200/40 text-[10px] sm:text-xs mt-1 sm:mt-2"
           style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}
         >
-          from Iron's Spells n Spellbooks
+          ex Alio Mundo
         </p>
 
         <div className="absolute bottom-6 sm:bottom-12 text-amber-200/30 text-[10px] sm:text-xs tracking-widest uppercase">

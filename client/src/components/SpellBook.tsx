@@ -207,48 +207,48 @@ export default function SpellBook() {
 
   const navigateToPage = useCallback((targetPage: number, instant: boolean = false) => {
     const pf = pageFlipInstanceRef.current;
-    if (!pf) return;
+    if (!pf || !isInitialized) return;
     
     const clampedTarget = Math.max(0, Math.min(targetPage, maxPageIndex));
     
     try {
       if (instant) {
-        pf.turnToPage(clampedTarget);
+        pf.turnToPage?.(clampedTarget);
       } else {
-        pf.flip(clampedTarget);
+        pf.flip?.(clampedTarget);
+      }
+    } catch {
+      // Ignore flip errors
+    }
+  }, [isInitialized]);
+
+  const handlePrevious = useCallback((_instant: boolean = false) => {
+    const pf = pageFlipInstanceRef.current;
+    if (!pf) return;
+    try {
+      const current = pf.getCurrentPageIndex?.();
+      if (typeof current === 'number' && current > 0) {
+        pf.turnToPage(current - 1);
       }
     } catch {
       // Ignore flip errors
     }
   }, []);
 
-  const handlePrevious = useCallback((_instant: boolean = false) => {
-    const pf = pageFlipInstanceRef.current;
-    if (!pf) return;
-    const current = pf.getCurrentPageIndex();
-    if (current > 0) {
-      try {
-        pf.turnToPage(current - 1);
-      } catch {
-        // Ignore flip errors
-      }
-    }
-  }, []);
-
   const handleNext = useCallback((instant: boolean = false) => {
     const pf = pageFlipInstanceRef.current;
     if (!pf) return;
-    const current = pf.getCurrentPageIndex();
-    if (current < maxPageIndex) {
-      try {
+    try {
+      const current = pf.getCurrentPageIndex?.();
+      if (typeof current === 'number' && current < maxPageIndex) {
         if (instant) {
           pf.turnToPage(current + 1);
         } else {
           pf.flipNext();
         }
-      } catch {
-        // Ignore flip errors
       }
+    } catch {
+      // Ignore flip errors
     }
   }, []);
 
