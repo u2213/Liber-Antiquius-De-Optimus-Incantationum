@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 import { Search, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { searchSpells, Spell, getSchoolColor } from '@/lib/spellData';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 interface BookmarkSearchProps {
   onSpellSelect: (spell: Spell) => void;
@@ -95,7 +94,7 @@ export default function BookmarkSearch({ onSpellSelect }: BookmarkSearchProps) {
             border: '2px solid hsl(35 40% 30%)',
           }}
         >
-          <ScrollArea className="max-h-64">
+          <div className="max-h-64 overflow-y-auto">
             {results.map((spell) => (
               <button
                 key={spell.id}
@@ -125,7 +124,7 @@ export default function BookmarkSearch({ onSpellSelect }: BookmarkSearchProps) {
                 </div>
               </button>
             ))}
-          </ScrollArea>
+          </div>
         </div>
       )}
 

@@ -6,9 +6,10 @@ interface SpellPageProps {
   schoolName?: string;
   pageNumber: number;
   isSchoolHeader?: boolean;
+  isLeftPage?: boolean;
 }
 
-export default function SpellPage({ spells, schoolName, pageNumber, isSchoolHeader }: SpellPageProps) {
+export default function SpellPage({ spells, schoolName, pageNumber, isSchoolHeader, isLeftPage }: SpellPageProps) {
   const schoolColor = schoolName ? getSchoolColor(schoolName) : undefined;
 
   return (
@@ -28,18 +29,18 @@ export default function SpellPage({ spells, schoolName, pageNumber, isSchoolHead
 
       <div className="absolute inset-0 pointer-events-none">
         <div 
-          className="absolute left-0 top-0 bottom-0 w-6"
+          className="absolute left-0 top-0 bottom-0 w-4 sm:w-6"
           style={{
             background: 'linear-gradient(90deg, rgba(0,0,0,0.08), transparent)',
           }}
         />
       </div>
 
-      <div className="relative flex-1 flex flex-col p-3 min-h-0">
+      <div className="relative flex-1 flex flex-col p-2 sm:p-3 min-h-0">
         {isSchoolHeader && schoolName && (
-          <div className="text-center mb-2 pb-2 border-b-2 flex-shrink-0" style={{ borderColor: schoolColor }}>
+          <div className="text-center mb-1.5 sm:mb-2 pb-1.5 sm:pb-2 border-b-2 flex-shrink-0" style={{ borderColor: schoolColor }}>
             <h2 
-              className="font-serif text-lg font-bold tracking-wide"
+              className="font-serif text-base sm:text-lg font-bold tracking-wide"
               style={{ color: schoolColor }}
             >
               {schoolName} Spells
@@ -47,14 +48,13 @@ export default function SpellPage({ spells, schoolName, pageNumber, isSchoolHead
           </div>
         )}
 
-        <div className="flex-1 flex flex-col justify-start gap-2 min-h-0 overflow-hidden">
-          {spells.map((spell, index) => (
+        <div className="flex-1 flex flex-col justify-start gap-1.5 sm:gap-2 min-h-0 overflow-hidden">
+          {spells.map((spell) => (
             <div 
               key={spell.id} 
-              className="flex-shrink-0"
+              className="flex-1 min-h-0"
               style={{ 
-                flex: spells.length === 1 ? '0 0 auto' : '0 0 calc(50% - 4px)',
-                maxHeight: spells.length === 1 ? 'none' : 'calc(50% - 4px)',
+                maxHeight: spells.length === 1 ? '100%' : 'calc(50% - 4px)',
               }}
             >
               <div 
@@ -66,19 +66,13 @@ export default function SpellPage({ spells, schoolName, pageNumber, isSchoolHead
               >
                 <SpellCard spell={spell} />
               </div>
-              {index < spells.length - 1 && spells.length > 1 && (
-                <div 
-                  className="w-3/4 mx-auto h-px my-1"
-                  style={{ background: 'linear-gradient(90deg, transparent, hsl(35 40% 60% / 0.4), transparent)' }}
-                />
-              )}
             </div>
           ))}
         </div>
 
         <div 
-          className="absolute bottom-2 right-3 text-xs font-serif"
-          style={{ color: 'hsl(35 40% 40% / 0.5)' }}
+          className={`absolute bottom-1.5 sm:bottom-2 text-xs sm:text-sm font-serif ${isLeftPage ? 'left-2 sm:left-3' : 'right-2 sm:right-3'}`}
+          style={{ color: 'hsl(35 40% 30% / 0.7)' }}
         >
           {pageNumber}
         </div>

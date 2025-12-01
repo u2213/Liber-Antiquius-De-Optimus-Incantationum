@@ -4,8 +4,8 @@ import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-r
 interface PageNavigationProps {
   currentPage: number;
   totalPages: number;
-  onPrevious: () => void;
-  onNext: () => void;
+  onPrevious: (instant?: boolean) => void;
+  onNext: (instant?: boolean) => void;
   onFirst: () => void;
   onLast: () => void;
 }
@@ -41,7 +41,7 @@ export default function PageNavigation({
       <Button
         size="icon"
         variant="ghost"
-        onClick={onPrevious}
+        onClick={(e) => onPrevious(e.shiftKey)}
         disabled={currentPage <= 1}
         className="text-amber-200/70 hover:text-amber-100 hover:bg-amber-900/20 disabled:opacity-30"
         data-testid="nav-previous"
@@ -58,7 +58,7 @@ export default function PageNavigation({
       <Button
         size="icon"
         variant="ghost"
-        onClick={onNext}
+        onClick={(e) => onNext(e.shiftKey)}
         disabled={currentPage >= totalPages}
         className="text-amber-200/70 hover:text-amber-100 hover:bg-amber-900/20 disabled:opacity-30"
         data-testid="nav-next"

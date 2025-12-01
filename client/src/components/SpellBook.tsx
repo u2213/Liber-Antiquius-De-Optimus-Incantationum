@@ -57,15 +57,16 @@ function getSchoolPageMap(pages: PageData[]): Record<string, number> {
 
 const pages = generatePages();
 const schoolPageMap = getSchoolPageMap(pages);
-const lastNavigableIdx = pages.length - 2;
+const totalPages = pages.length;
+const maxPageIndex = totalPages - 1;
 
 export default function SpellBook() {
   const containerRef = useRef<HTMLDivElement>(null);
   const bookRef = useRef<HTMLDivElement>(null);
   const pageFlipInstanceRef = useRef<PageFlip | null>(null);
-  const isFlippingRef = useRef(false);
+  const lastDimensionsRef = useRef({ width: 0, height: 0 });
   const [currentPage, setCurrentPage] = useState(0);
-  const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
@@ -73,9 +74,10 @@ export default function SpellBook() {
       const vh = window.innerHeight;
       const vw = window.innerWidth;
       
-      const navHeight = 70;
-      const bookmarkHeight = 60;
-      const padding = 40;
+      const isMobile = vw < 640;
+      const navHeight = isMobile ? 56 : 70;
+      const bookmarkHeight = isMobile ? 50 : 60;
+      const padding = isMobile ? 16 : 40;
       
       const availableHeight = vh - navHeight - bookmarkHeight - padding;
       const availableWidth = vw - padding;
@@ -90,7 +92,9 @@ export default function SpellBook() {
         bookWidth = bookHeight * bookAspectRatio;
       }
       
-      bookWidth = Math.min(1600, Math.max(500, bookWidth));
+      const minWidth = isMobile ? 300 : 500;
+      const maxWidth = isMobile ? 800 : 1600;
+      bookWidth = Math.min(maxWidth, Math.max(minWidth, bookWidth));
       bookHeight = bookWidth / bookAspectRatio;
       
       setDimensions({ 
@@ -105,19 +109,30 @@ export default function SpellBook() {
   }, []);
 
   useEffect(() => {
-    if (!bookRef.current) return;
+    if (!bookRef.current || dimensions.width === 0) return;
     
     const pageWidth = Math.floor(dimensions.width / 2);
     const pageHeight = Math.floor(dimensions.height);
 
-    if (pageFlipInstanceRef.current) {
-      try {
-        pageFlipInstanceRef.current.update();
-      } catch {
-        // Ignore update errors
-      }
+    const widthChanged = Math.abs(lastDimensionsRef.current.width - dimensions.width) > 50;
+    const heightChanged = Math.abs(lastDimensionsRef.current.height - dimensions.height) > 50;
+    const needsReinit = widthChanged || heightChanged;
+
+    if (pageFlipInstanceRef.current && !needsReinit) {
       return;
     }
+
+    if (pageFlipInstanceRef.current && needsReinit) {
+      try {
+        pageFlipInstanceRef.current.destroy();
+      } catch {
+        // Ignore destroy errors
+      }
+      pageFlipInstanceRef.current = null;
+      setIsInitialized(false);
+    }
+
+    lastDimensionsRef.current = { ...dimensions };
 
     const initTimeout = setTimeout(() => {
       if (!bookRef.current || pageFlipInstanceRef.current) return;
@@ -126,20 +141,22 @@ export default function SpellBook() {
         const pageFlip = new PageFlip(bookRef.current, {
           width: pageWidth,
           height: pageHeight,
-          size: 'stretch',
-          minWidth: 250,
+          size: 'fixed',
+          minWidth: 150,
           maxWidth: 1000,
-          minHeight: 350,
+          minHeight: 200,
           maxHeight: 1200,
           showCover: true,
-          flippingTime: 800,
+          flippingTime: 600,
           usePortrait: false,
           startZIndex: 10,
-          autoSize: true,
+          autoSize: false,
           maxShadowOpacity: 0.5,
           mobileScrollSupport: true,
           drawShadow: true,
           useMouseEvents: true,
+          clickEventForward: false,
+          swipeDistance: 30,
         });
 
         const pageElements = bookRef.current.querySelectorAll('.page');
@@ -148,13 +165,7 @@ export default function SpellBook() {
         }
 
         pageFlip.on('flip', (e: { data: number }) => {
-          const pageIdx = Math.min(e.data, lastNavigableIdx);
-          setCurrentPage(pageIdx);
-          isFlippingRef.current = false;
-        });
-
-        pageFlip.on('changeState', (e: { data: string }) => {
-          isFlippingRef.current = e.data === 'flipping';
+          setCurrentPage(e.data);
         });
 
         pageFlipInstanceRef.current = pageFlip;
@@ -162,59 +173,63 @@ export default function SpellBook() {
       } catch {
         // Ignore initialization errors
       }
-    }, 150);
+    }, 100);
 
     return () => {
       clearTimeout(initTimeout);
     };
   }, [dimensions]);
 
-  const safeFlip = useCallback((action: 'prev' | 'next' | number) => {
+  const navigateToPage = useCallback((targetPage: number, instant: boolean = false) => {
     const pf = pageFlipInstanceRef.current;
-    if (!pf || isFlippingRef.current) return;
+    if (!pf) return;
+    
+    const clampedTarget = Math.max(0, Math.min(targetPage, maxPageIndex));
     
     try {
-      const currentIdx = pf.getCurrentPageIndex();
-      
-      if (action === 'prev') {
-        if (currentIdx > 0) {
-          isFlippingRef.current = true;
-          pf.flipPrev();
-        }
-      } else if (action === 'next') {
-        if (currentIdx < lastNavigableIdx) {
-          isFlippingRef.current = true;
-          pf.flipNext();
-        }
-      } else if (typeof action === 'number') {
-        const targetPage = Math.max(0, Math.min(action, lastNavigableIdx));
-        if (targetPage !== currentIdx) {
-          isFlippingRef.current = true;
-          pf.turnToPage(targetPage);
-        }
+      if (instant) {
+        pf.turnToPage(clampedTarget);
+      } else {
+        pf.flip(clampedTarget);
       }
     } catch {
-      isFlippingRef.current = false;
+      // Ignore flip errors
     }
   }, []);
 
-  const handlePrevious = useCallback(() => safeFlip('prev'), [safeFlip]);
-  const handleNext = useCallback(() => safeFlip('next'), [safeFlip]);
-  const handleFirst = useCallback(() => safeFlip(0), [safeFlip]);
-  const handleLast = useCallback(() => safeFlip(lastNavigableIdx), [safeFlip]);
+  const handlePrevious = useCallback((instant: boolean = false) => {
+    const pf = pageFlipInstanceRef.current;
+    if (!pf) return;
+    const current = pf.getCurrentPageIndex();
+    if (current > 0) {
+      navigateToPage(current - 1, instant);
+    }
+  }, [navigateToPage]);
+
+  const handleNext = useCallback((instant: boolean = false) => {
+    const pf = pageFlipInstanceRef.current;
+    if (!pf) return;
+    const current = pf.getCurrentPageIndex();
+    if (current < maxPageIndex) {
+      navigateToPage(current + 1, instant);
+    }
+  }, [navigateToPage]);
+
+  const handleFirst = useCallback(() => navigateToPage(0, true), [navigateToPage]);
+  const handleLast = useCallback(() => navigateToPage(maxPageIndex, true), [navigateToPage]);
 
   const handleSchoolSelect = useCallback((_schoolName: string, pageIndex: number) => {
-    safeFlip(pageIndex);
-  }, [safeFlip]);
+    navigateToPage(pageIndex);
+  }, [navigateToPage]);
 
   const handleSpellSelect = useCallback((spell: Spell) => {
     const pageIndex = pages.findIndex(
       p => p.spells?.some(s => s.id === spell.id)
     );
     if (pageIndex >= 0) {
-      safeFlip(pageIndex);
+      navigateToPage(pageIndex);
     }
-  }, [safeFlip]);
+  }, [navigateToPage]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -222,10 +237,10 @@ export default function SpellBook() {
       
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        handlePrevious();
+        handlePrevious(e.shiftKey);
       } else if (e.key === 'ArrowRight') {
         e.preventDefault();
-        handleNext();
+        handleNext(e.shiftKey);
       }
     };
 
@@ -263,6 +278,7 @@ export default function SpellBook() {
             schoolName={page.schoolName}
             pageNumber={page.pageNumber}
             isSchoolHeader={page.type === 'school-header'}
+            isLeftPage={index % 2 === 1}
           />
         )}
       </div>
@@ -300,7 +316,7 @@ export default function SpellBook() {
       <div className="flex justify-center pb-3 z-50">
         <PageNavigation
           currentPage={currentPage + 1}
-          totalPages={lastNavigableIdx + 1}
+          totalPages={totalPages}
           onPrevious={handlePrevious}
           onNext={handleNext}
           onFirst={handleFirst}
