@@ -11,6 +11,7 @@ export default function BookmarkSearch({ onSpellSelect }: BookmarkSearchProps) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Spell[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -29,65 +30,116 @@ export default function BookmarkSearch({ onSpellSelect }: BookmarkSearchProps) {
     function handleClickOutside(event: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsOpen(false);
+        if (!query) setIsExpanded(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  }, [query]);
 
   const handleSelect = (spell: Spell) => {
     onSpellSelect(spell);
     setQuery('');
     setIsOpen(false);
+    setIsExpanded(false);
   };
 
   const handleClear = () => {
     setQuery('');
     setResults([]);
     setIsOpen(false);
-    inputRef.current?.focus();
+  };
+
+  const handleRibbonClick = () => {
+    setIsExpanded(true);
+    setTimeout(() => inputRef.current?.focus(), 100);
   };
 
   return (
     <div 
       ref={containerRef}
-      className="relative"
+      className="relative flex flex-col items-center"
       data-testid="bookmark-search"
     >
       <div 
-        className="relative flex items-center min-w-[200px]"
+        className="relative cursor-pointer group"
+        onClick={!isExpanded ? handleRibbonClick : undefined}
+        data-testid="toggle-bookmark-ribbon"
         style={{
-          background: 'linear-gradient(180deg, hsl(15 70% 28%), hsl(15 60% 22%))',
-          borderRadius: '0 0 12px 12px',
-          padding: '10px 20px 16px 20px',
-          boxShadow: '0 6px 20px rgba(0,0,0,0.5)',
-          clipPath: 'polygon(0 0, 100% 0, 92% 100%, 8% 100%)',
+          width: isExpanded ? '280px' : '44px',
+          transition: 'width 0.3s ease',
         }}
       >
-        <Search className="w-4 h-4 text-amber-200/70 mr-2 flex-shrink-0" />
-        <Input
-          ref={inputRef}
-          type="search"
-          placeholder="Search spells..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="bg-transparent border-0 border-b border-amber-200/30 rounded-none text-amber-100 placeholder:text-amber-200/50 focus-visible:ring-0 focus-visible:border-amber-200/60 h-7 text-sm w-[140px]"
-          data-testid="search-input"
-        />
-        {query && (
-          <button
-            onClick={handleClear}
-            className="ml-2 text-amber-200/70 hover:text-amber-100 transition-colors flex-shrink-0"
-            data-testid="search-clear"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        )}
+        <div
+          className="relative overflow-visible"
+          style={{
+            background: 'linear-gradient(180deg, hsl(0 60% 38%), hsl(0 50% 30%))',
+            boxShadow: '2px 6px 16px rgba(0,0,0,0.5)',
+            clipPath: isExpanded 
+              ? 'polygon(0 0, 100% 0, 100% calc(100% - 12px), 50% 100%, 0 calc(100% - 12px))'
+              : 'polygon(0 0, 100% 0, 100% calc(100% - 16px), 50% 100%, 0 calc(100% - 16px))',
+            padding: isExpanded ? '12px 16px 24px 16px' : '14px 10px 28px 10px',
+            minHeight: isExpanded ? 'auto' : '90px',
+            transition: 'all 0.3s ease',
+          }}
+        >
+          <div 
+            className="absolute left-1 right-1 top-2 h-[1px]"
+            style={{ background: 'linear-gradient(90deg, transparent, hsl(45 70% 60% / 0.5), transparent)' }}
+          />
+          
+          {!isExpanded ? (
+            <div className="flex flex-col items-center justify-center h-full">
+              <Search className="w-5 h-5 text-amber-200/90 group-hover:text-amber-100 transition-colors" />
+              <span 
+                className="text-amber-200/70 text-[10px] font-serif tracking-widest mt-2 group-hover:text-amber-100 transition-colors"
+                style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+              >
+                SEARCH
+              </span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Search className="w-4 h-4 text-amber-200/80 flex-shrink-0" />
+              <Input
+                ref={inputRef}
+                type="search"
+                placeholder="Search spells..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="bg-transparent border-0 border-b border-amber-200/30 rounded-none text-amber-100 placeholder:text-amber-200/50 focus-visible:ring-0 focus-visible:border-amber-200/60 h-7 text-sm flex-1"
+                data-testid="search-input"
+              />
+              {query ? (
+                <button
+                  onClick={handleClear}
+                  className="text-amber-200/70 hover:text-amber-100 transition-colors flex-shrink-0"
+                  data-testid="search-clear"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => { setIsExpanded(false); setQuery(''); }}
+                  className="text-amber-200/70 hover:text-amber-100 transition-colors flex-shrink-0"
+                  data-testid="button-ribbon-close"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          )}
+          
+          <div 
+            className="absolute left-1 right-1 bottom-6 h-[1px]"
+            style={{ background: 'linear-gradient(90deg, transparent, hsl(45 70% 60% / 0.5), transparent)' }}
+          />
+        </div>
       </div>
 
       {isOpen && results.length > 0 && (
         <div 
-          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-md overflow-hidden z-50"
+          className="absolute top-full mt-2 w-72 rounded-md overflow-hidden z-50"
           style={{
             background: 'linear-gradient(180deg, hsl(39 35% 88%), hsl(35 25% 80%))',
             boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
@@ -130,7 +182,7 @@ export default function BookmarkSearch({ onSpellSelect }: BookmarkSearchProps) {
 
       {isOpen && results.length === 0 && query.length >= 2 && (
         <div 
-          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 rounded-md p-4 text-center text-muted-foreground text-sm z-50"
+          className="absolute top-full mt-2 w-72 rounded-md p-4 text-center text-muted-foreground text-sm z-50"
           style={{
             background: 'linear-gradient(180deg, hsl(39 35% 88%), hsl(35 25% 80%))',
             boxShadow: '0 8px 24px rgba(0,0,0,0.4)',

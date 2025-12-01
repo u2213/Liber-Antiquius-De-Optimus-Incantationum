@@ -6,6 +6,7 @@ import TableOfContents from './TableOfContents';
 import SpellPage from './SpellPage';
 import BookmarkSearch from './BookmarkSearch';
 import PageNavigation from './PageNavigation';
+import backgroundImage from '@assets/workspace_1764618872510.png';
 
 interface PageData {
   type: 'cover' | 'toc' | 'school-header' | 'spells' | 'back';
@@ -64,49 +65,83 @@ export default function SpellBook() {
   const containerRef = useRef<HTMLDivElement>(null);
   const bookRef = useRef<HTMLDivElement>(null);
   const pageFlipInstanceRef = useRef<PageFlip | null>(null);
-  const lastDimensionsRef = useRef({ width: 0, height: 0 });
+  const resizeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [isInitialized, setIsInitialized] = useState(false);
+  const [key, setKey] = useState(0);
+
+  const calculateDimensions = useCallback(() => {
+    if (!containerRef.current) return { width: 0, height: 0 };
+    
+    const container = containerRef.current;
+    const rect = container.getBoundingClientRect();
+    const vh = rect.height;
+    const vw = rect.width;
+    
+    const isMobile = vw < 640;
+    const navHeight = isMobile ? 56 : 70;
+    const bookmarkHeight = isMobile ? 50 : 60;
+    const padding = isMobile ? 16 : 40;
+    
+    const availableHeight = vh - navHeight - bookmarkHeight - padding;
+    const availableWidth = vw - padding;
+    
+    const bookAspectRatio = 1.4;
+    
+    let bookWidth = availableWidth;
+    let bookHeight = bookWidth / bookAspectRatio;
+    
+    if (bookHeight > availableHeight) {
+      bookHeight = availableHeight;
+      bookWidth = bookHeight * bookAspectRatio;
+    }
+    
+    const minWidth = isMobile ? 280 : 400;
+    const maxWidth = isMobile ? 600 : 1200;
+    bookWidth = Math.min(maxWidth, Math.max(minWidth, bookWidth));
+    bookHeight = bookWidth / bookAspectRatio;
+    
+    return { 
+      width: Math.floor(bookWidth), 
+      height: Math.floor(bookHeight) 
+    };
+  }, []);
 
   useEffect(() => {
     const updateDimensions = () => {
-      const vh = window.innerHeight;
-      const vw = window.innerWidth;
-      
-      const isMobile = vw < 640;
-      const navHeight = isMobile ? 56 : 70;
-      const bookmarkHeight = isMobile ? 50 : 60;
-      const padding = isMobile ? 16 : 40;
-      
-      const availableHeight = vh - navHeight - bookmarkHeight - padding;
-      const availableWidth = vw - padding;
-      
-      const bookAspectRatio = 1.4;
-      
-      let bookWidth = availableWidth;
-      let bookHeight = bookWidth / bookAspectRatio;
-      
-      if (bookHeight > availableHeight) {
-        bookHeight = availableHeight;
-        bookWidth = bookHeight * bookAspectRatio;
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
       }
       
-      const minWidth = isMobile ? 300 : 500;
-      const maxWidth = isMobile ? 800 : 1600;
-      bookWidth = Math.min(maxWidth, Math.max(minWidth, bookWidth));
-      bookHeight = bookWidth / bookAspectRatio;
-      
-      setDimensions({ 
-        width: Math.floor(bookWidth), 
-        height: Math.floor(bookHeight) 
-      });
+      resizeTimeoutRef.current = setTimeout(() => {
+        const newDims = calculateDimensions();
+        if (newDims.width > 0 && newDims.height > 0) {
+          setDimensions(newDims);
+        }
+      }, 150);
     };
 
     updateDimensions();
+    
+    const resizeObserver = new ResizeObserver(() => {
+      updateDimensions();
+    });
+    
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+    
     window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
+    
+    return () => {
+      if (resizeTimeoutRef.current) {
+        clearTimeout(resizeTimeoutRef.current);
+      }
+      resizeObserver.disconnect();
+      window.removeEventListener('resize', updateDimensions);
+    };
+  }, [calculateDimensions]);
 
   useEffect(() => {
     if (!bookRef.current || dimensions.width === 0) return;
@@ -114,15 +149,7 @@ export default function SpellBook() {
     const pageWidth = Math.floor(dimensions.width / 2);
     const pageHeight = Math.floor(dimensions.height);
 
-    const widthChanged = Math.abs(lastDimensionsRef.current.width - dimensions.width) > 50;
-    const heightChanged = Math.abs(lastDimensionsRef.current.height - dimensions.height) > 50;
-    const needsReinit = widthChanged || heightChanged;
-
-    if (pageFlipInstanceRef.current && !needsReinit) {
-      return;
-    }
-
-    if (pageFlipInstanceRef.current && needsReinit) {
+    if (pageFlipInstanceRef.current) {
       try {
         pageFlipInstanceRef.current.destroy();
       } catch {
@@ -132,8 +159,6 @@ export default function SpellBook() {
       setIsInitialized(false);
     }
 
-    lastDimensionsRef.current = { ...dimensions };
-
     const initTimeout = setTimeout(() => {
       if (!bookRef.current || pageFlipInstanceRef.current) return;
 
@@ -142,10 +167,10 @@ export default function SpellBook() {
           width: pageWidth,
           height: pageHeight,
           size: 'fixed',
-          minWidth: 150,
-          maxWidth: 1000,
-          minHeight: 200,
-          maxHeight: 1200,
+          minWidth: 100,
+          maxWidth: 800,
+          minHeight: 150,
+          maxHeight: 1000,
           showCover: true,
           flippingTime: 600,
           usePortrait: false,
@@ -178,7 +203,7 @@ export default function SpellBook() {
     return () => {
       clearTimeout(initTimeout);
     };
-  }, [dimensions]);
+  }, [dimensions, key]);
 
   const navigateToPage = useCallback((targetPage: number, instant: boolean = false) => {
     const pf = pageFlipInstanceRef.current;
@@ -260,6 +285,17 @@ export default function SpellBook() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handlePrevious, handleNext]);
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && dimensions.width > 0) {
+        setKey(k => k + 1);
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [dimensions]);
+
   const renderPage = (page: PageData, index: number) => {
     const isHard = page.type === 'cover' || page.type === 'back';
     
@@ -302,16 +338,27 @@ export default function SpellBook() {
       ref={containerRef}
       className="h-screen w-screen flex flex-col overflow-hidden"
       style={{
-        background: 'radial-gradient(ellipse at center, hsl(30 10% 15%), hsl(25 8% 8%))',
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className="flex justify-center pt-2 z-50">
+      <div 
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.2), rgba(0,0,0,0.5))',
+        }}
+      />
+      
+      <div className="relative flex justify-center pt-0 z-50">
         <BookmarkSearch onSpellSelect={handleSpellSelect} />
       </div>
 
-      <div className="flex-1 flex items-center justify-center min-h-0 px-4">
+      <div className="relative flex-1 flex items-center justify-center min-h-0 px-4">
         <div 
           ref={bookRef}
+          key={key}
           className="relative"
           style={{
             width: dimensions.width,
@@ -325,7 +372,7 @@ export default function SpellBook() {
         </div>
       </div>
 
-      <div className="flex justify-center pb-3 z-50">
+      <div className="relative flex justify-center pb-3 z-50">
         <PageNavigation
           currentPage={currentPage + 1}
           totalPages={totalPages}
