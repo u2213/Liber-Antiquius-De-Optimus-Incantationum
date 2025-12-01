@@ -197,19 +197,15 @@ export default function SpellBook() {
     }
   }, []);
 
-  const handlePrevious = useCallback((instant: boolean = false) => {
+  const handlePrevious = useCallback((_instant: boolean = false) => {
     const pf = pageFlipInstanceRef.current;
     if (!pf) return;
     const current = pf.getCurrentPageIndex();
     if (current > 0) {
       try {
-        if (instant) {
-          pf.turnToPage(current - 1);
-        } else {
-          (pf as any).flip(current - 1, 'top-left');
-        }
-      } catch {
         pf.turnToPage(current - 1);
+      } catch {
+        // Ignore flip errors
       }
     }
   }, []);
