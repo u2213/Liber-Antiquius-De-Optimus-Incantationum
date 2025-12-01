@@ -39,6 +39,7 @@ declare module 'page-flip' {
     getPageCount(): number;
     getOrientation(): 'portrait' | 'landscape';
     getBoundsRect(): DOMRect;
+    getState(): 'read' | 'flipping' | 'user_fold' | 'fold_corner';
     
     on(eventName: string, callback: (e: { data: number }) => void): void;
     off(eventName: string): void;
