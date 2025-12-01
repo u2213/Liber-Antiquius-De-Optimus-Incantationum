@@ -327,31 +327,14 @@
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  width: 100% !important;
-  height: 100% !important;
 }
 
 .stf__parent {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  width: 100% !important;
-  height: 100% !important;
 }
 
 .stf__block {
   margin: 0 auto !important;
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  transform-origin: center center !important;
 }
