@@ -43,9 +43,21 @@
   --chart-3: 205 55% 30%;
   --chart-4: 145 50% 28%;
   --chart-5: 280 55% 30%;
-  --font-sans: Open Sans, sans-serif;
-  --font-serif: Georgia, serif;
-  --font-mono: Menlo, monospace;
+  --font-sans: 'Crimson Text', Georgia, serif;
+  --font-serif: 'Cinzel', 'IM Fell English', Georgia, serif;
+  --font-mono: 'Lora', Georgia, serif;
+  --parchment: 39 35% 88%;
+  --parchment-dark: 35 25% 20%;
+  --ink: 35 40% 15%;
+  --blood: 0 70% 35%;
+  --eldritch: 270 60% 40%;
+  --ender: 280 50% 35%;
+  --evocation: 45 80% 45%;
+  --fire: 15 85% 50%;
+  --holy: 45 90% 65%;
+  --ice: 200 70% 55%;
+  --lightning: 55 90% 55%;
+  --nature: 120 50% 35%;
   --radius: .5rem;
   --shadow-2xs: 0px 2px 0px 0px hsl(30 4% 50% / 0.00);
   --shadow-xs: 0px 2px 0px 0px hsl(30 4% 50% / 0.00);
@@ -173,6 +185,29 @@
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
+}
+
+.page {
+  background-color: hsl(39 35% 88%);
+  overflow: hidden;
+}
+
+.page[data-density="hard"] {
+  background-color: hsl(20 50% 18%);
+}
+
+.stf__parent {
+  perspective: 2000px;
+}
+
+.stf__wrapper {
+  transform-style: preserve-3d;
+}
+
+.stf__block {
+  box-shadow: 
+    0 0 30px rgba(0, 0, 0, 0.3),
+    inset 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /**
